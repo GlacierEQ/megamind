@@ -9,6 +9,7 @@ from .kernel import MegamindMissionKernel
 from .titan import TitanMeshEngine
 from .scanner import ModelArchaeologyScanner
 from .tranche import MegamindRecoveryTranche
+from .alpha_master import SecretAlphaMasterEngine
 from .adapters.tower import TowerAdapter
 from .adapters.akos import AKOSAdapter
 
@@ -21,6 +22,12 @@ def main():
 
     # Command: list-agents
     agents_parser = subparsers.add_parser("list-agents", help="List registered sovereign agents and piston assignments")
+
+    # Command: audit-alpha-models
+    alpha_parser = subparsers.add_parser("audit-alpha-models", help="Audit Secret Alpha & Exceptional Model Master List v0.1")
+
+    # Command: alpha-lineage
+    lineage_parser = subparsers.add_parser("alpha-lineage", help="List internal prompt-recovered Stealth agent lineages")
 
     # Command: run-recovery-tranche
     tranche_parser = subparsers.add_parser("run-recovery-tranche", help="Run governed recovery tranche on local orbits (.apex, .continue, .cline, .kilo)")
@@ -87,6 +94,7 @@ def main():
     titan = TitanMeshEngine()
     scanner = ModelArchaeologyScanner()
     tranche_engine = MegamindRecoveryTranche()
+    alpha_engine = SecretAlphaMasterEngine()
 
     if args.command == "status":
         print("🧠 [MEGAMIND] Sovereign Agent & Piston Registry State:")
@@ -97,6 +105,25 @@ def main():
         for agent_id in registry.agents:
             agent = registry.get_agent(agent_id)
             print(f"  • [{agent['agent_id']:<15}] {agent['name']:<20} | Pistons: {', '.join(agent['pistons'])}")
+
+    elif args.command == "audit-alpha-models":
+        print("🕵️‍♂️ [SECRET ALPHA & EXCEPTIONAL MODEL MASTER LIST v0.1]")
+        summary = alpha_engine.get_master_audit_summary()
+        print(f"Total External Master Records: {summary['total_external_master_records']} (14 Revealed + 7 Cloaked + 6 Preservation Targets)")
+        print("\n--- 14 Officially Revealed Stealth Releases ---")
+        for r in alpha_engine.get_revealed_aliases():
+            print(f"  • [{r['record_id']}] {r['public_alias']:<22} ──► {r['revealed_identity']:<25} ({r['revealed_lab']})")
+        print("\n--- 7 Cloaked Releases ---")
+        for c in alpha_engine.get_cloaked_releases():
+            print(f"  • [{c['record_id']}] {c['public_alias']:<22} | Status: {c['status']}")
+        print("\n--- 6 Exceptional Open Preservation Targets ---")
+        for p in alpha_engine.get_preservation_targets():
+            print(f"  • [{p['record_id']}] {p['name']:<25} | Provider: {p['provider']:<16} | License: {p['license']}")
+
+    elif args.command == "alpha-lineage":
+        print("🧬 [INTERNAL STEALTH AGENT LINEAGES (14 RECOVERED)]")
+        for line in alpha_engine.get_internal_stealth_lineages():
+            print(f"  • [{line['id']:<18}] {line['name']:<25} | Recovery Status: {line['recovery_status']}")
 
     elif args.command == "run-recovery-tranche":
         print("🛡️ [MEGAMIND RECOVERY TRANCHE] Ingesting & Sanitizing Orbits...")

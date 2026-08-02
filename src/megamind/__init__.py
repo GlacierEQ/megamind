@@ -10,6 +10,7 @@ from .kernel import MegamindMissionKernel
 from .titan import TitanMeshEngine
 from .scanner import ModelArchaeologyScanner
 from .tranche import MegamindRecoveryTranche
+from .alpha_master import SecretAlphaMasterEngine
 
 __version__ = "0.5.0"
 __all__ = [
@@ -20,5 +21,6 @@ __all__ = [
     "MegamindMissionKernel",
     "TitanMeshEngine",
     "ModelArchaeologyScanner",
-    "MegamindRecoveryTranche"
+    "MegamindRecoveryTranche",
+    "SecretAlphaMasterEngine"
 ]

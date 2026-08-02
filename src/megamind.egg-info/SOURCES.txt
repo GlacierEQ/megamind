@@ -9,6 +9,7 @@ src/megamind/mesh.py
 src/megamind/registry.py
 src/megamind/scanner.py
 src/megamind/titan.py
+src/megamind/tranche.py
 src/megamind.egg-info/PKG-INFO
 src/megamind.egg-info/SOURCES.txt
 src/megamind.egg-info/dependency_links.txt
@@ -31,3 +32,4 @@ tests/test_mesh.py
 tests/test_registry.py
 tests/test_scanner.py
 tests/test_titan.py
+tests/test_tranche.py

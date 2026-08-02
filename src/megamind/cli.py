@@ -1,12 +1,14 @@
 import sys
 import argparse
 import json
+from pathlib import Path
 from .registry import MegamindRegistry
 from .mesh import AgentMeshConnector
 from .acquisition import AgentAcquisitionEngine
 from .kernel import MegamindMissionKernel
 from .titan import TitanMeshEngine
 from .scanner import ModelArchaeologyScanner
+from .tranche import MegamindRecoveryTranche
 from .adapters.tower import TowerAdapter
 from .adapters.akos import AKOSAdapter
 
@@ -19,6 +21,12 @@ def main():
 
     # Command: list-agents
     agents_parser = subparsers.add_parser("list-agents", help="List registered sovereign agents and piston assignments")
+
+    # Command: run-recovery-tranche
+    tranche_parser = subparsers.add_parser("run-recovery-tranche", help="Run governed recovery tranche on local orbits (.apex, .continue, .cline, .kilo)")
+
+    # Command: tranche-receipt
+    receipt_t_parser = subparsers.add_parser("tranche-receipt", help="Show formal recovery tranche receipt")
 
     # Command: scan-artifacts
     scan_parser = subparsers.add_parser("scan-artifacts", help="Scan local stores and caches for model weight artifacts")
@@ -78,6 +86,7 @@ def main():
     kernel = MegamindMissionKernel(registry)
     titan = TitanMeshEngine()
     scanner = ModelArchaeologyScanner()
+    tranche_engine = MegamindRecoveryTranche()
 
     if args.command == "status":
         print("🧠 [MEGAMIND] Sovereign Agent & Piston Registry State:")
@@ -88,6 +97,25 @@ def main():
         for agent_id in registry.agents:
             agent = registry.get_agent(agent_id)
             print(f"  • [{agent['agent_id']:<15}] {agent['name']:<20} | Pistons: {', '.join(agent['pistons'])}")
+
+    elif args.command == "run-recovery-tranche":
+        print("🛡️ [MEGAMIND RECOVERY TRANCHE] Ingesting & Sanitizing Orbits...")
+        orbits = [
+            (Path("/Users/kcbflux/.apex"), "APEX_ORBIT"),
+            (Path("/Users/kcbflux/.continue"), "CONTINUE_ORBIT"),
+            (Path("/Users/kcbflux/.cline"), "CLINE_ORBIT"),
+            (Path("/Users/kcbflux/.kilo"), "KILO_ORBIT")
+        ]
+        for p, name in orbits:
+            res = tranche_engine.ingest_local_orbit(p, name)
+            print(f"  - Orbit: {res['orbit']:<16} | Files: {res.get('files_count', 0):<4} | Status: {res['status']}")
+        receipt = tranche_engine.generate_tranche_receipt()
+        print("\n📄 [TRANCHE RECOVERY RECEIPT]")
+        print(json.dumps(receipt, indent=2))
+
+    elif args.command == "tranche-receipt":
+        receipt = tranche_engine.generate_tranche_receipt()
+        print(json.dumps(receipt, indent=2))
 
     elif args.command == "scan-artifacts":
         print("🔎 [MODEL ARCHAEOLOGY SCANNER] Crawling Local Model Stores & Caches...")

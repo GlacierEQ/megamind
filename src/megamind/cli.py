@@ -115,10 +115,13 @@ def main():
             print(f"  • [{r['record_id']}] {r['public_alias']:<22} ──► {r['revealed_identity']:<25} ({r['revealed_lab']})")
         print("\n--- 7 Cloaked Releases ---")
         for c in alpha_engine.get_cloaked_releases():
-            print(f"  • [{c['record_id']}] {c['public_alias']:<22} | Status: {c['status']}")
+            status_val = c.get('continuity_status') or c.get('status')
+            print(f"  • [{c['record_id']}] {c['public_alias']:<22} | Status: {status_val}")
         print("\n--- 6 Exceptional Open Preservation Targets ---")
         for p in alpha_engine.get_preservation_targets():
-            print(f"  • [{p['record_id']}] {p['name']:<25} | Provider: {p['provider']:<16} | License: {p['license']}")
+            alias_val = p.get('public_alias') or p.get('name')
+            lab_val = p.get('revealed_lab') or p.get('provider')
+            print(f"  • [{p['record_id']}] {alias_val:<25} | Provider: {lab_val:<16} | License: {p['license']}")
 
     elif args.command == "alpha-lineage":
         print("🧬 [INTERNAL STEALTH AGENT LINEAGES (14 RECOVERED)]")

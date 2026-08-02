@@ -8,6 +8,7 @@ from .mesh import AgentMeshConnector
 from .acquisition import AgentAcquisitionEngine
 from .kernel import MegamindMissionKernel
 from .titan import TitanMeshEngine
+from .scanner import ModelArchaeologyScanner
 
 __version__ = "0.5.0"
 __all__ = [
@@ -16,5 +17,6 @@ __all__ = [
     "AgentMeshConnector",
     "AgentAcquisitionEngine",
     "MegamindMissionKernel",
-    "TitanMeshEngine"
+    "TitanMeshEngine",
+    "ModelArchaeologyScanner"
 ]

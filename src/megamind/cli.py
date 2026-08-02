@@ -6,6 +6,7 @@ from .mesh import AgentMeshConnector
 from .acquisition import AgentAcquisitionEngine
 from .kernel import MegamindMissionKernel
 from .titan import TitanMeshEngine
+from .scanner import ModelArchaeologyScanner
 from .adapters.tower import TowerAdapter
 from .adapters.akos import AKOSAdapter
 
@@ -18,6 +19,13 @@ def main():
 
     # Command: list-agents
     agents_parser = subparsers.add_parser("list-agents", help="List registered sovereign agents and piston assignments")
+
+    # Command: scan-artifacts
+    scan_parser = subparsers.add_parser("scan-artifacts", help="Scan local stores and caches for model weight artifacts")
+
+    # Command: verify-checkpoint
+    verify_cp_parser = subparsers.add_parser("verify-checkpoint", help="Advance model artifact through 12-step verification ladder")
+    verify_cp_parser.add_argument("path", help="Path to target model file")
 
     # Command: titan-mesh
     titan_parser = subparsers.add_parser("titan-mesh", help="Show Primordial Mesh Titan BLACKLINE OMEGA-999 codex state")
@@ -69,6 +77,7 @@ def main():
     acquirer = AgentAcquisitionEngine()
     kernel = MegamindMissionKernel(registry)
     titan = TitanMeshEngine()
+    scanner = ModelArchaeologyScanner()
 
     if args.command == "status":
         print("🧠 [MEGAMIND] Sovereign Agent & Piston Registry State:")
@@ -79,6 +88,18 @@ def main():
         for agent_id in registry.agents:
             agent = registry.get_agent(agent_id)
             print(f"  • [{agent['agent_id']:<15}] {agent['name']:<20} | Pistons: {', '.join(agent['pistons'])}")
+
+    elif args.command == "scan-artifacts":
+        print("🔎 [MODEL ARCHAEOLOGY SCANNER] Crawling Local Model Stores & Caches...")
+        found = scanner.scan_local_archives()
+        print(f"Discovered {len(found)} Model Weight Artifacts:")
+        for item in found:
+            print(f"  - [{item['format']:<5}] {item['filename']:<35} ({item['size_mb']} MB) | Stage: {item['verification_stage']}")
+
+    elif args.command == "verify-checkpoint":
+        res = scanner.advance_verification_ladder(args.path)
+        print("🔬 [12-STEP VERIFICATION LADDER]")
+        print(json.dumps(res, indent=2))
 
     elif args.command == "titan-mesh":
         print("🏛️ [PRIMORDIAL MESH TITAN] Codex BLACKLINE OMEGA-999:")
@@ -95,9 +116,6 @@ def main():
         print("\n--- Mastermind Command Layer (9 Roles) ---")
         for c in titan.get_command_layer():
             print(f"  - Command Role: {c['role']}")
-        print("\n--- Continue Routes ---")
-        for r in titan.get_continue_routes():
-            print(f"  - Route: {r['id']:<30} | Locality: {r['locality']}")
 
     elif args.command == "connect-mesh":
         conns = connector.auto_connect_swarm()

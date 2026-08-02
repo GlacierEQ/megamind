@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CollectibleAgentEngine",
+  "type": "object",
+  "required": ["artifact_id", "name", "artifact_class", "upstream_owner", "upstream_repository", "acquisition_priority", "acquisition_state"],
+  "properties": {
+    "artifact_id": { "type": "string" },
+    "name": { "type": "string" },
+    "artifact_class": { "type": "string", "enum": ["agent_engine", "hybrid_agent_stack", "mcp_server", "framework"] },
+    "upstream_owner": { "type": "string" },
+    "upstream_repository": { "type": "string" },
+    "license": { "type": "string" },
+    "acquisition_priority": { "type": "string", "enum": ["P0", "P1", "P2"] },
+    "acquisition_state": { "type": "string", "enum": ["identified_unacquired", "acquired", "verified", "mounted"] },
+    "why_collect": { "type": "string" },
+    "megamind_role": { "type": "string" }
+  }
+}

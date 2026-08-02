@@ -14,4 +14,5 @@ src/megamind/adapters/__init__.py
 src/megamind/adapters/akos.py
 src/megamind/adapters/tower.py
 tests/test_async.py
+tests/test_collectibles.py
 tests/test_registry.py

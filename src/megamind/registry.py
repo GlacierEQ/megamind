@@ -56,6 +56,28 @@ class MegamindRegistry:
         if seed_defaults:
             self.load_default_agents()
 
+    def load_collectible_agents(self, yaml_path: Optional[Path] = None) -> List[Dict[str, Any]]:
+        """Load collectible agent engines from registry YAML."""
+        if yaml_path is None:
+            yaml_path = Path(__file__).parent.parent.parent / "registry" / "collectible_agents.yml"
+        if yaml_path.exists():
+            import yaml
+            with open(yaml_path, "r", encoding="utf-8") as f:
+                data = yaml.safe_load(f)
+                return data.get("collectible_agents", [])
+        return []
+
+    def load_collectible_models(self, yaml_path: Optional[Path] = None) -> List[Dict[str, Any]]:
+        """Load collectible model bodies from registry YAML."""
+        if yaml_path is None:
+            yaml_path = Path(__file__).parent.parent.parent / "registry" / "collectible_models.yml"
+        if yaml_path.exists():
+            import yaml
+            with open(yaml_path, "r", encoding="utf-8") as f:
+                data = yaml.safe_load(f)
+                return data.get("collectible_models", [])
+        return []
+
     def load_default_agents(self):
         """Seed registry with standard 5 sovereign agents covering all 12 Pistons."""
         for agent in DEFAULT_AGENTS:

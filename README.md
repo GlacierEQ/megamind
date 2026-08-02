@@ -1,0 +1,49 @@
+# 🧠 Megamind
+
+**Sovereign Agent Registry, Capability Map & Piston Integration Core**
+
+`megamind` is the central specification and runtime registry governing sovereign AI agent definitions, 12 Pistons capability contracts, and technology mapping for the GlacierEQ APEX ecosystem.
+
+---
+
+## 🏛️ Architecture & Schemas
+
+- **Agent Schema**: [`schema/agent.schema.json`](schema/agent.schema.json) — Formal spec for multi-agent roles, models, and boundaries.
+- **Piston Schema**: [`schema/piston.schema.json`](schema/piston.schema.json) — 12 Pistons hardware/capability assignments (Ring -3).
+- **Technology Map Schema**: [`schema/technology-map.schema.json`](schema/technology-map.schema.json) — Tower of Babel cross-language integration contracts.
+
+---
+
+## 🚀 Quickstart
+
+```python
+from megamind import MegamindRegistry
+from megamind.adapters.tower import TowerAdapter
+
+# Initialize Megamind Registry
+registry = MegamindRegistry()
+
+# Register core agent profile
+registry.register_agent(
+    agent_id="doctor_strange",
+    name="Doctor Strange",
+    role="Environmental Harmonics & Multiversal Router",
+    pistons=["CORE-THINK", "SPECTER"]
+)
+
+print(registry.get_summary())
+```
+
+---
+
+## 🔗 Connected Ecosystem
+
+- **Tower of Babel**: [`GlacierEQ/the-tower-of-babel`](https://github.com/GlacierEQ/the-tower-of-babel)
+- **AKOS**: [`GlacierEQ/AKOS`](https://github.com/GlacierEQ/AKOS)
+- **Pro-Mastermind**: [`GlacierEQ/Pro-Mastermind`](https://github.com/GlacierEQ/Pro-Mastermind)
+
+---
+
+## License
+
+MIT © GlacierEQ

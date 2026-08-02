@@ -4,6 +4,7 @@ import json
 from .registry import MegamindRegistry
 from .mesh import AgentMeshConnector
 from .acquisition import AgentAcquisitionEngine
+from .kernel import MegamindMissionKernel
 from .adapters.tower import TowerAdapter
 from .adapters.akos import AKOSAdapter
 
@@ -23,6 +24,10 @@ def main():
     # Command: list-connections
     list_conn_parser = subparsers.add_parser("list-connections", help="List active inter-agent channels and connections")
 
+    # Command: run-mission
+    mission_parser = subparsers.add_parser("run-mission", help="Execute complete vertical slice Voice Memory Mission")
+    mission_parser.add_argument("--transcript", default="Voice memo recording sample", help="Simulated audio transcript")
+
     # Command: list-collectibles
     collectibles_parser = subparsers.add_parser("list-collectibles", help="List collectible agent engines and model bodies")
 
@@ -31,6 +36,11 @@ def main():
     acquire_parser.add_argument("artifact_id", help="ID of collectible artifact")
     acquire_parser.add_argument("--path", default="", help="Local storage path")
     acquire_parser.add_argument("--notes", default="", help="Acquisition notes")
+
+    # Command: acquire-model
+    acquire_model_parser = subparsers.add_parser("acquire-model", help="Mark a collectible model body as ACQUIRED in Model Vault")
+    acquire_model_parser.add_argument("artifact_id", help="ID of model body artifact")
+    acquire_model_parser.add_argument("--path", default="", help="Local checkpoint storage path")
 
     # Command: receipt
     receipt_parser = subparsers.add_parser("receipt", help="Generate formal acquisition receipt for artifact")
@@ -50,6 +60,7 @@ def main():
     registry = MegamindRegistry(seed_defaults=True)
     connector = AgentMeshConnector(registry)
     acquirer = AgentAcquisitionEngine()
+    kernel = MegamindMissionKernel(registry)
 
     if args.command == "status":
         print("🧠 [MEGAMIND] Sovereign Agent & Piston Registry State:")
@@ -73,6 +84,11 @@ def main():
         for channel, members in connector.channels.items():
             print(f"  • Channel [{channel}]: {', '.join(members)}")
 
+    elif args.command == "run-mission":
+        print("🚀 [MEGAMIND MISSION KERNEL] Executing Voice Memory Mission...")
+        res = kernel.execute_voice_memory_mission("/tmp/sample_audio.wav", simulated_transcript=args.transcript)
+        print(json.dumps(res, indent=2))
+
     elif args.command == "list-collectibles":
         print("🏆 [MEGAMIND COLLECTIBLE ENGINES & MODELS]")
         print("\n--- Agent Engines & Frameworks ---")
@@ -88,9 +104,17 @@ def main():
         res = acquirer.mark_acquired(args.artifact_id, local_path=args.path, notes=args.notes)
         if res.get("status") == "SUCCESS":
             art = res["artifact"]
-            print(f"✅ [MEGAMIND ACQUISITION] Successfully acquired: {art['name']} ({art['artifact_id']})")
+            print(f"✅ [MEGAMIND AGENT ACQUISITION] Successfully acquired: {art['name']} ({art['artifact_id']})")
         else:
             print(f"❌ [MEGAMIND ACQUISITION] Failed to acquire artifact: {args.artifact_id}")
+
+    elif args.command == "acquire-model":
+        res = acquirer.mark_model_acquired(args.artifact_id, local_path=args.path)
+        if res.get("status") == "SUCCESS":
+            art = res["artifact"]
+            print(f"💎 [MEGAMIND MODEL VAULT ACQUISITION] Successfully acquired model: {art['name']} ({art['artifact_id']})")
+        else:
+            print(f"❌ [MEGAMIND ACQUISITION] Failed to acquire model artifact: {args.artifact_id}")
 
     elif args.command == "receipt":
         rec = acquirer.generate_acquisition_receipt(args.artifact_id)
@@ -104,7 +128,7 @@ def main():
         p0_models = [m for m in models if m.get("acquisition_priority") == "P0"]
         print(f"P0 Priority Models: {len(p0_models)}")
         for m in models:
-            print(f"  - {m['name']} ({m['parameter_count']}) -> License: {m['license']} | Upstream: {m['upstream_owner']}")
+            print(f"  - {m['name']} ({m['parameter_count']}) -> License: {m['license']} | State: {m.get('acquisition_state')}")
 
     elif args.command == "sync-tower":
         adapter = TowerAdapter()

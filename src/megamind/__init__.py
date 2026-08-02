@@ -6,6 +6,13 @@ from .registry import MegamindRegistry
 from .async_engine import AsyncPistonEngine
 from .mesh import AgentMeshConnector
 from .acquisition import AgentAcquisitionEngine
+from .kernel import MegamindMissionKernel
 
-__version__ = "1.0.0"
-__all__ = ["MegamindRegistry", "AsyncPistonEngine", "AgentMeshConnector", "AgentAcquisitionEngine"]
+__version__ = "0.5.0"
+__all__ = [
+    "MegamindRegistry",
+    "AsyncPistonEngine",
+    "AgentMeshConnector",
+    "AgentAcquisitionEngine",
+    "MegamindMissionKernel"
+]

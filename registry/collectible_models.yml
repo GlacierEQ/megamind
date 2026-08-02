@@ -1,105 +1,110 @@
-version: "1.0.0"
+version: 1.0.0
 collectible_models:
-  - artifact_id: fara-1.5-family
-    name: Fara1.5 Family (4B / 9B / 27B)
-    artifact_class: model_weights
-    upstream_owner: microsoft
-    upstream_repository: https://github.com/microsoft/fara
-    huggingface_repo: https://huggingface.co/microsoft
-    license: MIT
-    parameter_count: "4B / 9B / 27B"
-    acquisition_priority: P0
-    acquisition_state: identified_unacquired
-    why_collect: Integrated screenshot reasoning and direct coordinate action models built on Qwen3.5
-    megamind_role: Wraith primary visual computer-use body
-
-  - artifact_id: ui-tars-1.5-7b
-    name: UI-TARS-1.5-7B
-    artifact_class: model_weights
-    upstream_owner: ByteDance-Seed
-    upstream_repository: https://github.com/bytedance/UI-TARS
-    huggingface_repo: https://huggingface.co/ByteDance-Seed/UI-TARS-1.5-7B
-    license: Apache-2.0
-    parameter_count: "7B"
-    acquisition_priority: P0
-    acquisition_state: identified_unacquired
-    why_collect: Multimodal GUI and computer-use model emitting actionable click/type/scroll coordinates
-    megamind_role: Primary open computer-use body for Wraith; useful to Phantom and Shadow
-
-  - artifact_id: os-atlas-family
-    name: OS-Atlas Family (Base-4B / Base-7B / Pro-7B)
-    artifact_class: model_weights
-    upstream_owner: OS-Copilot
-    upstream_repository: https://github.com/OS-Copilot/OS-Atlas
-    huggingface_repo: https://huggingface.co/OS-Copilot
-    license: Apache-2.0
-    parameter_count: "4B / 7B"
-    acquisition_priority: P0
-    acquisition_state: identified_unacquired
-    why_collect: Precise grounding of interface elements from screenshots with normalized coordinate outputs
-    megamind_role: Vision Lens and Wraith perception/grounding module
-
-  - artifact_id: scalecua-family
-    name: ScaleCUA Family (3B / 7B / 32B)
-    artifact_class: model_weights
-    upstream_owner: OpenGVLab
-    upstream_repository: https://github.com/OpenGVLab/ScaleCUA
-    huggingface_repo: https://huggingface.co/OpenGVLab
-    license: Apache-2.0
-    parameter_count: "3B / 7B / 32B"
-    acquisition_priority: P0
-    acquisition_state: identified_unacquired
-    why_collect: Cross-platform GUI operation model trained across Windows, macOS, Ubuntu, Android, and web
-    megamind_role: Graded hardware ladder for Wraith (3B test, 7B routine, 32B heavy)
-
-  - artifact_id: deepresearcher-7b
-    name: DeepResearcher-7B
-    artifact_class: model_weights
-    upstream_owner: GAIR
-    upstream_repository: https://github.com/GAIR-NLP/DeepResearcher
-    huggingface_repo: https://huggingface.co/GAIR/DeepResearcher-7b
-    license: Apache-2.0
-    parameter_count: "7B"
-    acquisition_priority: P0
-    acquisition_state: identified_unacquired
-    why_collect: Reinforcement learning research model trained against live web search for planning and evidence validation
-    megamind_role: Open research body for Sherlock source discovery and contradiction testing
-
-  - artifact_id: swe-agent-lm-32b
-    name: SWE-agent-LM-32B
-    artifact_class: model_weights
-    upstream_owner: SWE-bench
-    upstream_repository: https://github.com/SWE-agent/SWE-agent
-    huggingface_repo: https://huggingface.co/SWE-bench/SWE-agent-LM-32B
-    license: Apache-2.0
-    parameter_count: "32B"
-    acquisition_priority: P1
-    acquisition_state: identified_unacquired
-    why_collect: Specifically trained for repository issue resolution (40.2% Pass@1 on SWE-bench Verified)
-    megamind_role: High-power coding body for Viper, Core Think, and Bodybuilder
-
-  - artifact_id: autoglm-phone-9b
-    name: AutoGLM-Phone-9B / Multilingual
-    artifact_class: model_weights
-    upstream_owner: zai-org
-    upstream_repository: https://github.com/zai-org/Open-AutoGLM
-    huggingface_repo: https://huggingface.co/zai-org
-    license: Apache-2.0
-    parameter_count: "9B"
-    acquisition_priority: P0
-    acquisition_state: identified_unacquired
-    why_collect: Mobile computer control model for Android, HarmonyOS, and iOS
-    megamind_role: Mobile Control Stone model body
-
-  - artifact_id: showui-2b
-    name: ShowUI-2B
-    artifact_class: model_weights
-    upstream_owner: showlab
-    upstream_repository: https://github.com/showlab/ShowUI
-    huggingface_repo: https://huggingface.co/showlab
-    license: Apache-2.0
-    parameter_count: "2B"
-    acquisition_priority: P0
-    acquisition_state: identified_unacquired
-    why_collect: End-to-end vision-language-action model ideal for lightweight tests and local fallback
-    megamind_role: Lightweight Vision Lens and Wraith fallback
+- artifact_id: fara-1.5-family
+  name: Fara1.5 Family (4B / 9B / 27B)
+  artifact_class: model_weights
+  upstream_owner: microsoft
+  upstream_repository: https://github.com/microsoft/fara
+  huggingface_repo: https://huggingface.co/microsoft
+  license: MIT
+  parameter_count: 4B / 9B / 27B
+  acquisition_priority: P0
+  acquisition_state: acquired
+  why_collect: Integrated screenshot reasoning and direct coordinate action models
+    built on Qwen3.5
+  megamind_role: Wraith primary visual computer-use body
+  local_path: /Users/kcbflux/models/fara-1.5
+- artifact_id: ui-tars-1.5-7b
+  name: UI-TARS-1.5-7B
+  artifact_class: model_weights
+  upstream_owner: ByteDance-Seed
+  upstream_repository: https://github.com/bytedance/UI-TARS
+  huggingface_repo: https://huggingface.co/ByteDance-Seed/UI-TARS-1.5-7B
+  license: Apache-2.0
+  parameter_count: 7B
+  acquisition_priority: P0
+  acquisition_state: acquired
+  why_collect: Multimodal GUI and computer-use model emitting actionable click/type/scroll
+    coordinates
+  megamind_role: Primary open computer-use body for Wraith; useful to Phantom and
+    Shadow
+  local_path: /Users/kcbflux/models/ui-tars
+- artifact_id: os-atlas-family
+  name: OS-Atlas Family (Base-4B / Base-7B / Pro-7B)
+  artifact_class: model_weights
+  upstream_owner: OS-Copilot
+  upstream_repository: https://github.com/OS-Copilot/OS-Atlas
+  huggingface_repo: https://huggingface.co/OS-Copilot
+  license: Apache-2.0
+  parameter_count: 4B / 7B
+  acquisition_priority: P0
+  acquisition_state: identified_unacquired
+  why_collect: Precise grounding of interface elements from screenshots with normalized
+    coordinate outputs
+  megamind_role: Vision Lens and Wraith perception/grounding module
+- artifact_id: scalecua-family
+  name: ScaleCUA Family (3B / 7B / 32B)
+  artifact_class: model_weights
+  upstream_owner: OpenGVLab
+  upstream_repository: https://github.com/OpenGVLab/ScaleCUA
+  huggingface_repo: https://huggingface.co/OpenGVLab
+  license: Apache-2.0
+  parameter_count: 3B / 7B / 32B
+  acquisition_priority: P0
+  acquisition_state: identified_unacquired
+  why_collect: Cross-platform GUI operation model trained across Windows, macOS, Ubuntu,
+    Android, and web
+  megamind_role: Graded hardware ladder for Wraith (3B test, 7B routine, 32B heavy)
+- artifact_id: deepresearcher-7b
+  name: DeepResearcher-7B
+  artifact_class: model_weights
+  upstream_owner: GAIR
+  upstream_repository: https://github.com/GAIR-NLP/DeepResearcher
+  huggingface_repo: https://huggingface.co/GAIR/DeepResearcher-7b
+  license: Apache-2.0
+  parameter_count: 7B
+  acquisition_priority: P0
+  acquisition_state: identified_unacquired
+  why_collect: Reinforcement learning research model trained against live web search
+    for planning and evidence validation
+  megamind_role: Open research body for Sherlock source discovery and contradiction
+    testing
+- artifact_id: swe-agent-lm-32b
+  name: SWE-agent-LM-32B
+  artifact_class: model_weights
+  upstream_owner: SWE-bench
+  upstream_repository: https://github.com/SWE-agent/SWE-agent
+  huggingface_repo: https://huggingface.co/SWE-bench/SWE-agent-LM-32B
+  license: Apache-2.0
+  parameter_count: 32B
+  acquisition_priority: P1
+  acquisition_state: acquired
+  why_collect: Specifically trained for repository issue resolution (40.2% Pass@1
+    on SWE-bench Verified)
+  megamind_role: High-power coding body for Viper, Core Think, and Bodybuilder
+  local_path: /Users/kcbflux/models/swe-agent-32b
+- artifact_id: autoglm-phone-9b
+  name: AutoGLM-Phone-9B / Multilingual
+  artifact_class: model_weights
+  upstream_owner: zai-org
+  upstream_repository: https://github.com/zai-org/Open-AutoGLM
+  huggingface_repo: https://huggingface.co/zai-org
+  license: Apache-2.0
+  parameter_count: 9B
+  acquisition_priority: P0
+  acquisition_state: identified_unacquired
+  why_collect: Mobile computer control model for Android, HarmonyOS, and iOS
+  megamind_role: Mobile Control Stone model body
+- artifact_id: showui-2b
+  name: ShowUI-2B
+  artifact_class: model_weights
+  upstream_owner: showlab
+  upstream_repository: https://github.com/showlab/ShowUI
+  huggingface_repo: https://huggingface.co/showlab
+  license: Apache-2.0
+  parameter_count: 2B
+  acquisition_priority: P0
+  acquisition_state: identified_unacquired
+  why_collect: End-to-end vision-language-action model ideal for lightweight tests
+    and local fallback
+  megamind_role: Lightweight Vision Lens and Wraith fallback

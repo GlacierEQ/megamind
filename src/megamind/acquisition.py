@@ -25,8 +25,19 @@ class AgentAcquisitionEngine:
         with open(self.agents_file, "w", encoding="utf-8") as f:
             yaml.safe_dump(data, f, sort_keys=False)
 
+    def load_models(self) -> List[Dict[str, Any]]:
+        if self.models_file.exists():
+            with open(self.models_file, "r", encoding="utf-8") as f:
+                return yaml.safe_load(f).get("collectible_models", [])
+        return []
+
+    def save_models(self, models: List[Dict[str, Any]]):
+        data = {"version": "1.0.0", "collectible_models": models}
+        with open(self.models_file, "w", encoding="utf-8") as f:
+            yaml.safe_dump(data, f, sort_keys=False)
+
     def mark_acquired(self, artifact_id: str, local_path: str = "", notes: str = "") -> Dict[str, Any]:
-        """Update acquisition state of a collectible agent engine to ACQUIRED/VERIFIED."""
+        """Update acquisition state of a collectible agent engine."""
         agents = self.load_agents()
         updated_item = None
         for a in agents:
@@ -44,8 +55,27 @@ class AgentAcquisitionEngine:
             return {"status": "SUCCESS", "artifact": updated_item}
         return {"status": "NOT_FOUND", "artifact_id": artifact_id}
 
+    def mark_model_acquired(self, artifact_id: str, local_path: str = "", sha256_manifest: str = "") -> Dict[str, Any]:
+        """Update acquisition state of a collectible model body in Model Vault."""
+        models = self.load_models()
+        updated_item = None
+        for m in models:
+            if m["artifact_id"] == artifact_id:
+                m["acquisition_state"] = "acquired"
+                if local_path:
+                    m["local_path"] = local_path
+                if sha256_manifest:
+                    m["sha256_manifest"] = sha256_manifest
+                updated_item = m
+                break
+
+        if updated_item:
+            self.save_models(models)
+            return {"status": "SUCCESS", "artifact": updated_item}
+        return {"status": "NOT_FOUND", "artifact_id": artifact_id}
+
     def generate_acquisition_receipt(self, artifact_id: str) -> Dict[str, Any]:
-        """Generate formal acquisition receipt record matching GlacierEQ standards."""
+        """Generate formal acquisition receipt for an agent or model artifact."""
         agents = self.load_agents()
         for a in agents:
             if a["artifact_id"] == artifact_id:
@@ -53,6 +83,7 @@ class AgentAcquisitionEngine:
                     "receipt_id": f"REC-{artifact_id.upper()}",
                     "artifact_id": a["artifact_id"],
                     "name": a["name"],
+                    "artifact_class": a.get("artifact_class", "agent_engine"),
                     "acquisition_state": a.get("acquisition_state", "identified_unacquired"),
                     "upstream_owner": a.get("upstream_owner"),
                     "upstream_repository": a.get("upstream_repository"),
@@ -60,4 +91,23 @@ class AgentAcquisitionEngine:
                     "megamind_role": a.get("megamind_role"),
                     "verification_status": "HARDENED" if a.get("acquisition_state") == "acquired" else "PENDING_ACQUISITION"
                 }
+
+        models = self.load_models()
+        for m in models:
+            if m["artifact_id"] == artifact_id:
+                return {
+                    "receipt_id": f"REC-{artifact_id.upper()}",
+                    "artifact_id": m["artifact_id"],
+                    "name": m["name"],
+                    "artifact_class": "model_weights",
+                    "parameter_count": m.get("parameter_count"),
+                    "acquisition_state": m.get("acquisition_state", "identified_unacquired"),
+                    "upstream_owner": m.get("upstream_owner"),
+                    "upstream_repository": m.get("upstream_repository"),
+                    "huggingface_repo": m.get("huggingface_repo"),
+                    "license": m.get("license"),
+                    "megamind_role": m.get("megamind_role"),
+                    "verification_status": "LOCAL_VERIFIED" if m.get("acquisition_state") == "acquired" else "PENDING_ACQUISITION"
+                }
+
         return {"status": "NOT_FOUND"}

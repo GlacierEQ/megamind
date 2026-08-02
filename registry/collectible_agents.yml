@@ -11,7 +11,7 @@ collectible_agents:
   why_collect: Complete long-horizon super-agent harness centered on skills, memory,
     subagents, and sandboxes
   megamind_role: Megamind Mission Kernel, Core Think, Sherlock, Supernova
-  local_path: /Users/kcbflux/deer-flow
+  local_path: /tmp/deer-flow
   acquisition_notes: Acquired Wave 1 source genome
 - artifact_id: cli-agent-orchestrator
   name: CLI Agent Orchestrator (CAO)

@@ -3,8 +3,17 @@ from megamind.registry import MegamindRegistry
 from megamind.adapters.tower import TowerAdapter
 from megamind.adapters.akos import AKOSAdapter
 
+def test_default_seeding():
+    registry = MegamindRegistry(seed_defaults=True)
+    assert len(registry.agents) == 5
+    assert "doctor_strange" in registry.agents
+    assert "doc_ock" in registry.agents
+    assert "morpheus" in registry.agents
+    assert "sherlock_alpha" in registry.agents
+    assert "wraith_specter" in registry.agents
+
 def test_agent_registration():
-    registry = MegamindRegistry()
+    registry = MegamindRegistry(seed_defaults=False)
     agent = registry.register_agent(
         agent_id="test_agent",
         name="Test Agent",
@@ -15,7 +24,7 @@ def test_agent_registration():
     assert registry.get_agent("test_agent") == agent
 
 def test_summary():
-    registry = MegamindRegistry()
+    registry = MegamindRegistry(seed_defaults=False)
     registry.register_agent("agent_1", "One", "Role 1", ["MICROWAVE"])
     summary = registry.get_summary()
     assert summary["total_registered_agents"] == 1

@@ -12,6 +12,9 @@ def main():
     # Command: status
     status_parser = subparsers.add_parser("status", help="Show Megamind operational state")
 
+    # Command: list-agents
+    agents_parser = subparsers.add_parser("list-agents", help="List registered sovereign agents and piston assignments")
+
     # Command: sync-tower
     sync_parser = subparsers.add_parser("sync-tower", help="Sync technology map with Tower of Babel")
 
@@ -20,11 +23,17 @@ def main():
 
     args = parser.parse_args()
 
-    registry = MegamindRegistry()
+    registry = MegamindRegistry(seed_defaults=True)
 
     if args.command == "status":
         print("🧠 [MEGAMIND] Sovereign Agent & Piston Registry State:")
         print(json.dumps(registry.get_summary(), indent=2))
+
+    elif args.command == "list-agents":
+        print("🤖 [MEGAMIND AGENTS] Registered Sovereign Profiles:")
+        for agent_id in registry.agents:
+            agent = registry.get_agent(agent_id)
+            print(f"  • [{agent['agent_id']:<15}] {agent['name']:<20} | Pistons: {', '.join(agent['pistons'])}")
 
     elif args.command == "sync-tower":
         adapter = TowerAdapter()

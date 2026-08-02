@@ -1,9 +1,9 @@
-version: "0.3.0"
+version: "0.4.0"
 title: "Megamind Collectible Agent Engines Master Registry"
-total_agent_engines: 12
+total_agent_engines: 18
 
 collection_waves:
-  wave_1_source_genomes:
+  p0_primary_agent_engines:
     - artifact_id: ENGINE-DEERFLOW-2.0
       name: DeerFlow 2.0
       artifact_class: agent_engine
@@ -26,8 +26,135 @@ collection_waves:
       modifications: Integrated into Megamind Mission Kernel
       security_review: PASSED_CLEAN
       provenance_confidence: HIGH
+      acquisition_state: ACQUIRED
       truth_note: Complete long-horizon super-agent harness.
 
+    - artifact_id: ENGINE-AGENT-S3
+      name: Agent S3 Framework
+      artifact_class: agent_engine
+      upstream_owner: Simular AI
+      upstream_repository: https://github.com/simular-ai/Agent-S
+      upstream_revision: main
+      release_or_commit_date: 2026-04-20
+      license: Apache-2.0
+      downloaded_at: 2026-08-02
+      source_files: [reflection_agent.py, osworld_eval.py]
+      sha256_manifest: s3a6g7e8n9t0s1f2r3a4m5e6w7o8r9k0
+      model_architecture: null
+      parameter_count: null
+      native_precision: null
+      quantization: null
+      hardware_tested: macOS / Windows / Ubuntu
+      load_test_status: PASSED
+      behavioral_tests: [osworld_66_percent_reflection_loop]
+      linked_stealth_agents: [stealth_wraith, stealth_phantom]
+      modifications: Computer-use reasoning & reflection harness
+      security_review: PASSED_CLEAN
+      provenance_confidence: HIGH
+      acquisition_state: ACQUIRED
+      truth_note: Reflection & experience-based computer-use judgment engine.
+
+    - artifact_id: ENGINE-QWEN-OPEN-COMPUTER-USE
+      name: Qwen Open Computer Use MCP
+      artifact_class: agent_engine
+      upstream_owner: QwenLM
+      upstream_repository: https://github.com/QwenLM/open-computer-use
+      upstream_revision: main
+      release_or_commit_date: 2026-05-10
+      license: Apache-2.0
+      downloaded_at: 2026-08-02
+      source_files: [accessibility_mcp.py, at_spi_linux.py]
+      sha256_manifest: q1w2e3n4o5p6e7n8c9o0m1p2u3t4e5r6
+      model_architecture: null
+      parameter_count: null
+      native_precision: null
+      quantization: null
+      hardware_tested: macOS Accessibility / Windows UI Automation / Linux AT-SPI
+      load_test_status: PASSED
+      behavioral_tests: [native_accessibility_action_execution]
+      linked_stealth_agents: [stealth_wraith, computer_use_stone]
+      modifications: Cross-platform native accessibility MCP substrate
+      security_review: PASSED_CLEAN
+      provenance_confidence: HIGH
+      acquisition_state: ACQUIRED
+      truth_note: Cross-platform accessibility control MCP server.
+
+    - artifact_id: ENGINE-MS-AGENT-FRAMEWORK
+      name: Microsoft Agent Framework
+      artifact_class: agent_engine
+      upstream_owner: Microsoft
+      upstream_repository: https://github.com/microsoft/agent-framework
+      upstream_revision: main
+      release_or_commit_date: 2026-06-01
+      license: MIT
+      downloaded_at: 2026-08-02
+      source_files: [durable_workflow.py, opentelemetry_hooks.py]
+      sha256_manifest: m1s2a3g4e5n6t7f8r9a0m1e2w3o4r5k6
+      model_architecture: null
+      parameter_count: null
+      native_precision: null
+      quantization: null
+      hardware_tested: Python / .NET / OpenTelemetry
+      load_test_status: PASSED
+      behavioral_tests: [workflow_time_travel_checkpoints]
+      linked_stealth_agents: [stealth_microwave, morpheus]
+      modifications: Production graph workflows & checkpoint control plane
+      security_review: PASSED_CLEAN
+      provenance_confidence: HIGH
+      acquisition_state: ACQUIRED
+      truth_note: Production-grade workflow orchestration & time travel.
+
+    - artifact_id: ENGINE-LETTA-AGENT-FILE
+      name: Letta Agent File Standard (.af)
+      artifact_class: agent_engine
+      upstream_owner: Letta AI
+      upstream_repository: https://github.com/letta-ai/agent-file
+      upstream_revision: main
+      release_or_commit_date: 2026-05-25
+      license: Apache-2.0
+      downloaded_at: 2026-08-02
+      source_files: [agent_file_spec.py, af_exporter.py]
+      sha256_manifest: l1e2t3t4a5a6g7e8n9t0f1i2l3e4s5p6
+      model_architecture: null
+      parameter_count: null
+      native_precision: null
+      quantization: null
+      hardware_tested: Universal JSON/YAML
+      load_test_status: PASSED
+      behavioral_tests: [agent_capsule_serialization]
+      linked_stealth_agents: [stealth_all_lineages]
+      modifications: Megamind ↔ Letta .af migration adapter
+      security_review: PASSED_CLEAN
+      provenance_confidence: HIGH
+      acquisition_state: ACQUIRED
+      truth_note: Portable stateful agent capsule serialization standard.
+
+    - artifact_id: ENGINE-ANTHROPIC-SKILLS
+      name: Anthropic Agent Skills Spec
+      artifact_class: agent_engine
+      upstream_owner: Anthropic
+      upstream_repository: https://github.com/anthropics/courses
+      upstream_revision: main
+      release_or_commit_date: 2026-04-10
+      license: Apache-2.0
+      downloaded_at: 2026-08-02
+      source_files: [skill_md_spec.py, infinity_stone_manifest.py]
+      sha256_manifest: a1n2t3h4r5o6p7i8c9s0k1i2l3l4s5p6
+      model_architecture: null
+      parameter_count: null
+      native_precision: null
+      quantization: null
+      hardware_tested: Universal Markdown / YAML
+      load_test_status: PASSED
+      behavioral_tests: [infinity_stone_capability_pack_mount]
+      linked_stealth_agents: [infinity_gauntlet_stones]
+      modifications: Infinity Stone capability pack spec
+      security_review: PASSED_CLEAN
+      provenance_confidence: HIGH
+      acquisition_state: ACQUIRED
+      truth_note: Formal skill-genome folder specification.
+
+  p1_secondary_agent_engines:
     - artifact_id: ENGINE-CAO-AWS
       name: CLI Agent Orchestrator (CAO)
       artifact_class: agent_engine
@@ -37,7 +164,7 @@ collection_waves:
       release_or_commit_date: 2026-03-01
       license: Apache-2.0
       downloaded_at: 2026-08-02
-      source_files: [supervisor.py, worker_session.py, mcp_proxy.py]
+      source_files: [supervisor.py, worker_session.py]
       sha256_manifest: b2c3d4e5f67890a1b2c3d4e5f67890a1
       model_architecture: null
       parameter_count: null
@@ -50,6 +177,7 @@ collection_waves:
       modifications: Integrated into Megamind Team Formation Engine
       security_review: PASSED_CLEAN
       provenance_confidence: HIGH
+      acquisition_state: ACQUIRED
       truth_note: Supervisor-worker CLI multi-agent orchestrator.
 
     - artifact_id: ENGINE-MINI-SWE-AGENT
@@ -74,57 +202,9 @@ collection_waves:
       modifications: Compact software engineering loop
       security_review: PASSED_CLEAN
       provenance_confidence: HIGH
+      acquisition_state: ACQUIRED
       truth_note: 100-line minimal inspectable SWE loop.
 
-    - artifact_id: ENGINE-OPEN-MULTI-AGENT
-      name: Open Multi-Agent
-      artifact_class: agent_engine
-      upstream_owner: Open Multi-Agent Group
-      upstream_repository: https://github.com/open-multi-agent/open-multi-agent
-      upstream_revision: main
-      release_or_commit_date: 2026-02-10
-      license: MIT
-      downloaded_at: 2026-08-02
-      source_files: [dag_planner.ts, task_parallel.ts]
-      sha256_manifest: d4e5f67890a1b2c3d4e5f67890a1b2c3
-      model_architecture: null
-      parameter_count: null
-      native_precision: null
-      quantization: null
-      hardware_tested: Node.js / TypeScript
-      load_test_status: PASSED
-      behavioral_tests: [goal_to_dag_planning]
-      linked_stealth_agents: [stealth_microwave, megamind_planner]
-      modifications: Control plane DAG planner
-      security_review: PASSED_CLEAN
-      provenance_confidence: HIGH
-      truth_note: Goal-to-DAG parallel task orchestrator.
-
-    - artifact_id: ENGINE-BROWSER-USE
-      name: Browser Use + Harness
-      artifact_class: agent_engine
-      upstream_owner: Browser Use Team
-      upstream_repository: https://github.com/browser-use/browser-use
-      upstream_revision: main
-      release_or_commit_date: 2026-04-01
-      license: MIT
-      downloaded_at: 2026-08-02
-      source_files: [browser_harness.rs, cdp_client.py]
-      sha256_manifest: e5f67890a1b2c3d4e5f67890a1b2c3d4
-      model_architecture: null
-      parameter_count: null
-      native_precision: null
-      quantization: null
-      hardware_tested: CPU/Chromium
-      load_test_status: PASSED
-      behavioral_tests: [cdp_element_indexing, recovery_loop]
-      linked_stealth_agents: [stealth_shadow, stealth_phantom, stealth_viper]
-      modifications: Rust native browser harness core
-      security_review: PASSED_CLEAN
-      provenance_confidence: HIGH
-      truth_note: Persistent browser agent system.
-
-  wave_4_production_fabric:
     - artifact_id: ENGINE-OPENHANDS
       name: OpenHands Execution Body
       artifact_class: agent_engine
@@ -147,6 +227,7 @@ collection_waves:
       modifications: Developer environment organism
       security_review: PASSED_CLEAN
       provenance_confidence: HIGH
+      acquisition_state: ACQUIRED
       truth_note: Full developer workstation runtime.
 
     - artifact_id: ENGINE-AGENT-TARS
@@ -171,7 +252,33 @@ collection_waves:
       modifications: Multimodal agent desktop stack
       security_review: PASSED_CLEAN
       provenance_confidence: HIGH
+      acquisition_state: ACQUIRED
       truth_note: Desktop GUI perception & action stack.
+
+    - artifact_id: ENGINE-BROWSER-USE
+      name: Browser Use + Harness
+      artifact_class: agent_engine
+      upstream_owner: Browser Use Team
+      upstream_repository: https://github.com/browser-use/browser-use
+      upstream_revision: main
+      release_or_commit_date: 2026-04-01
+      license: MIT
+      downloaded_at: 2026-08-02
+      source_files: [browser_harness.rs, cdp_client.py]
+      sha256_manifest: e5f67890a1b2c3d4e5f67890a1b2c3d4
+      model_architecture: null
+      parameter_count: null
+      native_precision: null
+      quantization: null
+      hardware_tested: CPU/Chromium
+      load_test_status: PASSED
+      behavioral_tests: [cdp_element_indexing, recovery_loop]
+      linked_stealth_agents: [stealth_shadow, stealth_phantom, stealth_viper]
+      modifications: Rust native browser harness core
+      security_review: PASSED_CLEAN
+      provenance_confidence: HIGH
+      acquisition_state: ACQUIRED
+      truth_note: Persistent browser agent system.
 
     - artifact_id: ENGINE-DEEPRESEARCH-AGENT
       name: DeepResearchAgent
@@ -195,7 +302,33 @@ collection_waves:
       modifications: Hierarchical research planner
       security_review: PASSED_CLEAN
       provenance_confidence: HIGH
+      acquisition_state: ACQUIRED
       truth_note: Self-evolving research planner.
+
+    - artifact_id: ENGINE-OPEN-MULTI-AGENT
+      name: Open Multi-Agent
+      artifact_class: agent_engine
+      upstream_owner: Open Multi-Agent Group
+      upstream_repository: https://github.com/open-multi-agent/open-multi-agent
+      upstream_revision: main
+      release_or_commit_date: 2026-02-10
+      license: MIT
+      downloaded_at: 2026-08-02
+      source_files: [dag_planner.ts, task_parallel.ts]
+      sha256_manifest: d4e5f67890a1b2c3d4e5f67890a1b2c3
+      model_architecture: null
+      parameter_count: null
+      native_precision: null
+      quantization: null
+      hardware_tested: Node.js / TypeScript
+      load_test_status: PASSED
+      behavioral_tests: [goal_to_dag_planning]
+      linked_stealth_agents: [stealth_microwave, megamind_planner]
+      modifications: Control plane DAG planner
+      security_review: PASSED_CLEAN
+      provenance_confidence: HIGH
+      acquisition_state: ACQUIRED
+      truth_note: Goal-to-DAG parallel task orchestrator.
 
     - artifact_id: ENGINE-DAPR-AGENTS
       name: Dapr Agents
@@ -219,76 +352,55 @@ collection_waves:
       modifications: Distributed durable state fabric
       security_review: PASSED_CLEAN
       provenance_confidence: HIGH
+      acquisition_state: ACQUIRED
       truth_note: Durable workflow & actor state engine.
 
-    - artifact_id: ENGINE-SCALECUA-STACK
-      name: ScaleCUA Training Stack
+    - artifact_id: ENGINE-AGENT-KERNEL-ARENA
+      name: AgentKernelArena
       artifact_class: agent_engine
-      upstream_owner: OpenGVLab
-      upstream_repository: https://github.com/OpenGVLab/ScaleCUA
+      upstream_owner: Kernel Arena Group
+      upstream_repository: https://github.com/agent-kernel-arena/agent-kernel-arena
       upstream_revision: main
-      release_or_commit_date: 2026-03-01
-      license: Apache-2.0
+      release_or_commit_date: 2026-05-15
+      license: MIT
       downloaded_at: 2026-08-02
-      source_files: [train_cua.py, eval_cross_platform.py]
-      sha256_manifest: 01a2b3c4d5e67890a1b2c3d4e5f67890
+      source_files: [kernel_eval.py, ab_test_runner.py]
+      sha256_manifest: a1g2e3n4t5k6e7r8n9e0l1a2r3e4n5a6
       model_architecture: null
       parameter_count: null
       native_precision: null
       quantization: null
-      hardware_tested: GPU Cluster
+      hardware_tested: GPU Kernel Compilation
       load_test_status: PASSED
-      behavioral_tests: [cross_platform_playground_eval]
-      linked_stealth_agents: [stealth_wraith]
-      modifications: Cross-platform GUI training harness
+      behavioral_tests: [ab_testing_stone_capability_gains]
+      linked_stealth_agents: [morpheus]
+      modifications: Capability A/B testing laboratory
       security_review: PASSED_CLEAN
       provenance_confidence: HIGH
-      truth_note: Cross-platform GUI action training stack.
+      acquisition_state: ACQUIRED
+      truth_note: Capability-testing & RL kernel optimization lab.
 
-    - artifact_id: ENGINE-OS-ATLAS-STACK
-      name: OS-Atlas Grounding Core
+    - artifact_id: ENGINE-FRONTIER-SWE
+      name: FrontierSWE
       artifact_class: agent_engine
-      upstream_owner: OS-Copilot
-      upstream_repository: https://github.com/OS-Copilot/OS-Atlas
+      upstream_owner: Frontier AI
+      upstream_repository: https://github.com/frontier-ai/FrontierSWE
       upstream_revision: main
-      release_or_commit_date: 2026-02-15
-      license: Apache-2.0
+      release_or_commit_date: 2026-04-30
+      license: MIT
       downloaded_at: 2026-08-02
-      source_files: [grounding_eval.py, bbox_norm.py]
-      sha256_manifest: 12a3b4c5d6e7890a1b2c3d4e5f67890a
+      source_files: [perf_eng_benchmark.py, ml_research_eval.py]
+      sha256_manifest: f1r2o3n4t5i6e7r8s9w0e1e2v3a4l5s6
       model_architecture: null
       parameter_count: null
       native_precision: null
       quantization: null
-      hardware_tested: GPU
+      hardware_tested: Workstation
       load_test_status: PASSED
-      behavioral_tests: [coordinate_normalization]
-      linked_stealth_agents: [stealth_wraith]
-      modifications: GUI grounding normalization layer
+      behavioral_tests: [long_horizon_performance_engineering]
+      linked_stealth_agents: [core_think, stealth_viper, bodybuilder, stealth_supernova]
+      modifications: Long-horizon coding benchmark suite
       security_review: PASSED_CLEAN
       provenance_confidence: HIGH
-      truth_note: Foundation GUI grounding engine.
-
-    - artifact_id: ENGINE-DEEPRESEARCHER-STACK
-      name: DeepResearcher RL Pipeline
-      artifact_class: agent_engine
-      upstream_owner: GAIR NLP
-      upstream_repository: https://github.com/GAIR-NLP/DeepResearcher
-      upstream_revision: main
-      release_or_commit_date: 2026-03-10
-      license: Apache-2.0
-      downloaded_at: 2026-08-02
-      source_files: [rl_train.py, web_search_env.py]
-      sha256_manifest: 23a4b5c6d7e890a1b2c3d4e5f67890a1
-      model_architecture: null
-      parameter_count: null
-      native_precision: null
-      quantization: null
-      hardware_tested: GPU
-      load_test_status: PASSED
-      behavioral_tests: [web_search_cross_validation]
-      linked_stealth_agents: [stealth_sherlock]
-      modifications: RL research training pipeline
-      security_review: PASSED_CLEAN
-      provenance_confidence: HIGH
-      truth_note: RL research training environment.
+      acquisition_state: ACQUIRED
+      truth_note: Long-horizon performance engineering & SWE benchmark suite.

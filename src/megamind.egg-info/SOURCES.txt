@@ -1,6 +1,7 @@
 README.md
 pyproject.toml
 src/megamind/__init__.py
+src/megamind/acquisition.py
 src/megamind/async_engine.py
 src/megamind/cli.py
 src/megamind/mesh.py
@@ -14,6 +15,7 @@ src/megamind.egg-info/top_level.txt
 src/megamind/adapters/__init__.py
 src/megamind/adapters/akos.py
 src/megamind/adapters/tower.py
+tests/test_acquisition.py
 tests/test_async.py
 tests/test_collectibles.py
 tests/test_mesh.py

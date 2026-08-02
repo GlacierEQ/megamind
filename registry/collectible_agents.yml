@@ -1,111 +1,115 @@
-version: "1.0.0"
+version: 1.0.0
 collectible_agents:
-  - artifact_id: deer-flow-2.0
-    name: DeerFlow 2.0
-    artifact_class: agent_engine
-    upstream_owner: bytedance
-    upstream_repository: https://github.com/bytedance/deer-flow
-    license: Apache-2.0
-    acquisition_priority: P0
-    acquisition_state: identified_unacquired
-    why_collect: Complete long-horizon super-agent harness centered on skills, memory, subagents, and sandboxes
-    megamind_role: Megamind Mission Kernel, Core Think, Sherlock, Supernova
-
-  - artifact_id: cli-agent-orchestrator
-    name: CLI Agent Orchestrator (CAO)
-    artifact_class: agent_engine
-    upstream_owner: awslabs
-    upstream_repository: https://github.com/awslabs/cli-agent-orchestrator
-    license: Apache-2.0
-    acquisition_priority: P0
-    acquisition_state: identified_unacquired
-    why_collect: Supervisor-worker tmux orchestration across Codex, Claude Code, Gemini CLI, and Kimi CLI
-    megamind_role: Microwave / Lil Omni, Phantom, team-formation engine
-
-  - artifact_id: mini-swe-agent
-    name: mini-SWE-agent
-    artifact_class: agent_engine
-    upstream_owner: SWE-agent
-    upstream_repository: https://github.com/SWE-agent/mini-swe-agent
-    license: MIT
-    acquisition_priority: P0
-    acquisition_state: identified_unacquired
-    why_collect: Compact 100-150 line coding loop scoring 74%+ on SWE-bench Verified
-    megamind_role: Viper, Bodybuilder, coding-agent genome
-
-  - artifact_id: openhands
-    name: OpenHands
-    artifact_class: agent_engine
-    upstream_owner: OpenHands
-    upstream_repository: https://github.com/All-Hands-AI/OpenHands
-    license: MIT
-    acquisition_priority: P1
-    acquisition_state: identified_unacquired
-    why_collect: Full developer workstation runtime with terminal, browser, and file editing
-    megamind_role: Viper execution body, Bodybuilder, Code Forge Stone
-
-  - artifact_id: agent-tars
-    name: Agent TARS
-    artifact_class: hybrid_agent_stack
-    upstream_owner: bytedance
-    upstream_repository: https://github.com/bytedance/UI-TARS-desktop
-    license: Apache-2.0
-    acquisition_priority: P0
-    acquisition_state: identified_unacquired
-    why_collect: Multimodal agent runtime with DOM interaction, CLI, browser operator, and MCP kernel
-    megamind_role: Wraith, Phantom, Browser Compass, Computer-Use Stone
-
-  - artifact_id: browser-use
-    name: Browser Use
-    artifact_class: agent_engine
-    upstream_owner: browser-use
-    upstream_repository: https://github.com/browser-use/browser-use
-    license: MIT
-    acquisition_priority: P0
-    acquisition_state: identified_unacquired
-    why_collect: Native Rust + Python browser agent API with CDP actions and self-recovery
-    megamind_role: Shadow, Phantom, Viper, Browser Compass
-
-  - artifact_id: agent-s3
-    name: Agent S3
-    artifact_class: agent_engine
-    upstream_owner: simular-ai
-    upstream_repository: https://github.com/simular-ai/Agent-S
-    license: Apache-2.0
-    acquisition_priority: P0
-    acquisition_state: identified_unacquired
-    why_collect: Computer-use reasoning harness with reflection, experience learning, and OSWorld 72.6% score
-    megamind_role: Wraith + Phantom operational reasoning
-
-  - artifact_id: open-autoglm
-    name: Open-AutoGLM
-    artifact_class: hybrid_agent_stack
-    upstream_owner: zai-org
-    upstream_repository: https://github.com/zai-org/Open-AutoGLM
-    license: Apache-2.0
-    acquisition_priority: P0
-    acquisition_state: identified_unacquired
-    why_collect: Mobile computer control across Android, HarmonyOS, and iOS with visual planning
-    megamind_role: Mobile Control Stone around Wraith and Phantom
-
-  - artifact_id: agent-zero
-    name: Agent Zero
-    artifact_class: agent_engine
-    upstream_owner: agent0ai
-    upstream_repository: https://github.com/agent0ai/agent-zero
-    license: MIT
-    acquisition_priority: P0
-    acquisition_state: acquired
-    why_collect: Dockerized desktop environment, persistent memory, subagents, and host bridge
-    megamind_role: General executable body around Stealth agents
-
-  - artifact_id: qwen-open-computer-use
-    name: Qwen Open Computer Use
-    artifact_class: mcp_server
-    upstream_owner: QwenLM
-    upstream_repository: https://github.com/QwenLM/open-computer-use
-    license: Apache-2.0
-    acquisition_priority: P0
-    acquisition_state: identified_unacquired
-    why_collect: Native accessibility-based MCP computer control for macOS, Windows, and Linux
-    megamind_role: Computer Use Infinity Stone
+- artifact_id: deer-flow-2.0
+  name: DeerFlow 2.0
+  artifact_class: agent_engine
+  upstream_owner: bytedance
+  upstream_repository: https://github.com/bytedance/deer-flow
+  license: Apache-2.0
+  acquisition_priority: P0
+  acquisition_state: acquired
+  why_collect: Complete long-horizon super-agent harness centered on skills, memory,
+    subagents, and sandboxes
+  megamind_role: Megamind Mission Kernel, Core Think, Sherlock, Supernova
+  local_path: /Users/kcbflux/deer-flow
+  acquisition_notes: Acquired Wave 1 source genome
+- artifact_id: cli-agent-orchestrator
+  name: CLI Agent Orchestrator (CAO)
+  artifact_class: agent_engine
+  upstream_owner: awslabs
+  upstream_repository: https://github.com/awslabs/cli-agent-orchestrator
+  license: Apache-2.0
+  acquisition_priority: P0
+  acquisition_state: acquired
+  why_collect: Supervisor-worker tmux orchestration across Codex, Claude Code, Gemini
+    CLI, and Kimi CLI
+  megamind_role: Microwave / Lil Omni, Phantom, team-formation engine
+  local_path: /Users/kcbflux/cli-agent-orchestrator
+- artifact_id: mini-swe-agent
+  name: mini-SWE-agent
+  artifact_class: agent_engine
+  upstream_owner: SWE-agent
+  upstream_repository: https://github.com/SWE-agent/mini-swe-agent
+  license: MIT
+  acquisition_priority: P0
+  acquisition_state: acquired
+  why_collect: Compact 100-150 line coding loop scoring 74%+ on SWE-bench Verified
+  megamind_role: Viper, Bodybuilder, coding-agent genome
+  local_path: /Users/kcbflux/mini-swe-agent
+- artifact_id: openhands
+  name: OpenHands
+  artifact_class: agent_engine
+  upstream_owner: OpenHands
+  upstream_repository: https://github.com/All-Hands-AI/OpenHands
+  license: MIT
+  acquisition_priority: P1
+  acquisition_state: identified_unacquired
+  why_collect: Full developer workstation runtime with terminal, browser, and file
+    editing
+  megamind_role: Viper execution body, Bodybuilder, Code Forge Stone
+- artifact_id: agent-tars
+  name: Agent TARS
+  artifact_class: hybrid_agent_stack
+  upstream_owner: bytedance
+  upstream_repository: https://github.com/bytedance/UI-TARS-desktop
+  license: Apache-2.0
+  acquisition_priority: P0
+  acquisition_state: identified_unacquired
+  why_collect: Multimodal agent runtime with DOM interaction, CLI, browser operator,
+    and MCP kernel
+  megamind_role: Wraith, Phantom, Browser Compass, Computer-Use Stone
+- artifact_id: browser-use
+  name: Browser Use
+  artifact_class: agent_engine
+  upstream_owner: browser-use
+  upstream_repository: https://github.com/browser-use/browser-use
+  license: MIT
+  acquisition_priority: P0
+  acquisition_state: identified_unacquired
+  why_collect: Native Rust + Python browser agent API with CDP actions and self-recovery
+  megamind_role: Shadow, Phantom, Viper, Browser Compass
+- artifact_id: agent-s3
+  name: Agent S3
+  artifact_class: agent_engine
+  upstream_owner: simular-ai
+  upstream_repository: https://github.com/simular-ai/Agent-S
+  license: Apache-2.0
+  acquisition_priority: P0
+  acquisition_state: acquired
+  why_collect: Computer-use reasoning harness with reflection, experience learning,
+    and OSWorld 72.6% score
+  megamind_role: Wraith + Phantom operational reasoning
+  local_path: /Users/kcbflux/agent-s3
+- artifact_id: open-autoglm
+  name: Open-AutoGLM
+  artifact_class: hybrid_agent_stack
+  upstream_owner: zai-org
+  upstream_repository: https://github.com/zai-org/Open-AutoGLM
+  license: Apache-2.0
+  acquisition_priority: P0
+  acquisition_state: identified_unacquired
+  why_collect: Mobile computer control across Android, HarmonyOS, and iOS with visual
+    planning
+  megamind_role: Mobile Control Stone around Wraith and Phantom
+- artifact_id: agent-zero
+  name: Agent Zero
+  artifact_class: agent_engine
+  upstream_owner: agent0ai
+  upstream_repository: https://github.com/agent0ai/agent-zero
+  license: MIT
+  acquisition_priority: P0
+  acquisition_state: acquired
+  why_collect: Dockerized desktop environment, persistent memory, subagents, and host
+    bridge
+  megamind_role: General executable body around Stealth agents
+- artifact_id: qwen-open-computer-use
+  name: Qwen Open Computer Use
+  artifact_class: mcp_server
+  upstream_owner: QwenLM
+  upstream_repository: https://github.com/QwenLM/open-computer-use
+  license: Apache-2.0
+  acquisition_priority: P0
+  acquisition_state: identified_unacquired
+  why_collect: Native accessibility-based MCP computer control for macOS, Windows,
+    and Linux
+  megamind_role: Computer Use Infinity Stone

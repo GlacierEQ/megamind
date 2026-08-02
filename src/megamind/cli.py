@@ -3,6 +3,7 @@ import argparse
 import json
 from .registry import MegamindRegistry
 from .mesh import AgentMeshConnector
+from .acquisition import AgentAcquisitionEngine
 from .adapters.tower import TowerAdapter
 from .adapters.akos import AKOSAdapter
 
@@ -25,6 +26,16 @@ def main():
     # Command: list-collectibles
     collectibles_parser = subparsers.add_parser("list-collectibles", help="List collectible agent engines and model bodies")
 
+    # Command: acquire
+    acquire_parser = subparsers.add_parser("acquire", help="Mark a collectible agent engine as ACQUIRED")
+    acquire_parser.add_argument("artifact_id", help="ID of collectible artifact")
+    acquire_parser.add_argument("--path", default="", help="Local storage path")
+    acquire_parser.add_argument("--notes", default="", help="Acquisition notes")
+
+    # Command: receipt
+    receipt_parser = subparsers.add_parser("receipt", help="Generate formal acquisition receipt for artifact")
+    receipt_parser.add_argument("artifact_id", help="ID of collectible artifact")
+
     # Command: audit-models
     audit_parser = subparsers.add_parser("audit-models", help="Audit model vault bodies and acquisition states")
 
@@ -38,6 +49,7 @@ def main():
 
     registry = MegamindRegistry(seed_defaults=True)
     connector = AgentMeshConnector(registry)
+    acquirer = AgentAcquisitionEngine()
 
     if args.command == "status":
         print("🧠 [MEGAMIND] Sovereign Agent & Piston Registry State:")
@@ -71,6 +83,19 @@ def main():
         models = registry.load_collectible_models()
         for item in models:
             print(f"  • [{item['acquisition_priority']}] {item['name']:<35} | {item['acquisition_state']:<22} | Params: {item['parameter_count']}")
+
+    elif args.command == "acquire":
+        res = acquirer.mark_acquired(args.artifact_id, local_path=args.path, notes=args.notes)
+        if res.get("status") == "SUCCESS":
+            art = res["artifact"]
+            print(f"✅ [MEGAMIND ACQUISITION] Successfully acquired: {art['name']} ({art['artifact_id']})")
+        else:
+            print(f"❌ [MEGAMIND ACQUISITION] Failed to acquire artifact: {args.artifact_id}")
+
+    elif args.command == "receipt":
+        rec = acquirer.generate_acquisition_receipt(args.artifact_id)
+        print("📄 [MEGAMIND ACQUISITION RECEIPT]")
+        print(json.dumps(rec, indent=2))
 
     elif args.command == "audit-models":
         print("🔍 [MEGAMIND MODEL VAULT AUDIT]")

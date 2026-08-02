@@ -2,6 +2,7 @@ import sys
 import argparse
 import json
 from .registry import MegamindRegistry
+from .mesh import AgentMeshConnector
 from .adapters.tower import TowerAdapter
 from .adapters.akos import AKOSAdapter
 
@@ -14,6 +15,12 @@ def main():
 
     # Command: list-agents
     agents_parser = subparsers.add_parser("list-agents", help="List registered sovereign agents and piston assignments")
+
+    # Command: connect-mesh
+    connect_parser = subparsers.add_parser("connect-mesh", help="Auto-connect sovereign agents into an APEX multi-agent mesh")
+
+    # Command: list-connections
+    list_conn_parser = subparsers.add_parser("list-connections", help="List active inter-agent channels and connections")
 
     # Command: list-collectibles
     collectibles_parser = subparsers.add_parser("list-collectibles", help="List collectible agent engines and model bodies")
@@ -30,6 +37,7 @@ def main():
     args = parser.parse_args()
 
     registry = MegamindRegistry(seed_defaults=True)
+    connector = AgentMeshConnector(registry)
 
     if args.command == "status":
         print("🧠 [MEGAMIND] Sovereign Agent & Piston Registry State:")
@@ -40,6 +48,18 @@ def main():
         for agent_id in registry.agents:
             agent = registry.get_agent(agent_id)
             print(f"  • [{agent['agent_id']:<15}] {agent['name']:<20} | Pistons: {', '.join(agent['pistons'])}")
+
+    elif args.command == "connect-mesh":
+        conns = connector.auto_connect_swarm()
+        print(f"🔗 [MEGAMIND MESH] Connected {len(conns)} Sovereign Agent Channels:")
+        for c in conns:
+            print(f"  • {c['source']:<15} ──[{c['channel']}]──► {c['target']}")
+
+    elif args.command == "list-connections":
+        conns = connector.auto_connect_swarm()
+        print("🌐 [ACTIVE INTER-AGENT CHANNELS]")
+        for channel, members in connector.channels.items():
+            print(f"  • Channel [{channel}]: {', '.join(members)}")
 
     elif args.command == "list-collectibles":
         print("🏆 [MEGAMIND COLLECTIBLE ENGINES & MODELS]")

@@ -1,115 +1,102 @@
-version: 1.0.0
-collectible_agents:
-- artifact_id: deer-flow-2.0
-  name: DeerFlow 2.0
-  artifact_class: agent_engine
-  upstream_owner: bytedance
-  upstream_repository: https://github.com/bytedance/deer-flow
-  license: Apache-2.0
-  acquisition_priority: P0
-  acquisition_state: acquired
-  why_collect: Complete long-horizon super-agent harness centered on skills, memory,
-    subagents, and sandboxes
-  megamind_role: Megamind Mission Kernel, Core Think, Sherlock, Supernova
-  local_path: /tmp/deer-flow
-  acquisition_notes: Acquired Wave 1 source genome
-- artifact_id: cli-agent-orchestrator
-  name: CLI Agent Orchestrator (CAO)
-  artifact_class: agent_engine
-  upstream_owner: awslabs
-  upstream_repository: https://github.com/awslabs/cli-agent-orchestrator
-  license: Apache-2.0
-  acquisition_priority: P0
-  acquisition_state: acquired
-  why_collect: Supervisor-worker tmux orchestration across Codex, Claude Code, Gemini
-    CLI, and Kimi CLI
-  megamind_role: Microwave / Lil Omni, Phantom, team-formation engine
-  local_path: /Users/kcbflux/cli-agent-orchestrator
-- artifact_id: mini-swe-agent
-  name: mini-SWE-agent
-  artifact_class: agent_engine
-  upstream_owner: SWE-agent
-  upstream_repository: https://github.com/SWE-agent/mini-swe-agent
-  license: MIT
-  acquisition_priority: P0
-  acquisition_state: acquired
-  why_collect: Compact 100-150 line coding loop scoring 74%+ on SWE-bench Verified
-  megamind_role: Viper, Bodybuilder, coding-agent genome
-  local_path: /Users/kcbflux/mini-swe-agent
-- artifact_id: openhands
-  name: OpenHands
-  artifact_class: agent_engine
-  upstream_owner: OpenHands
-  upstream_repository: https://github.com/All-Hands-AI/OpenHands
-  license: MIT
-  acquisition_priority: P1
-  acquisition_state: identified_unacquired
-  why_collect: Full developer workstation runtime with terminal, browser, and file
-    editing
-  megamind_role: Viper execution body, Bodybuilder, Code Forge Stone
-- artifact_id: agent-tars
-  name: Agent TARS
-  artifact_class: hybrid_agent_stack
-  upstream_owner: bytedance
-  upstream_repository: https://github.com/bytedance/UI-TARS-desktop
-  license: Apache-2.0
-  acquisition_priority: P0
-  acquisition_state: identified_unacquired
-  why_collect: Multimodal agent runtime with DOM interaction, CLI, browser operator,
-    and MCP kernel
-  megamind_role: Wraith, Phantom, Browser Compass, Computer-Use Stone
-- artifact_id: browser-use
-  name: Browser Use
-  artifact_class: agent_engine
-  upstream_owner: browser-use
-  upstream_repository: https://github.com/browser-use/browser-use
-  license: MIT
-  acquisition_priority: P0
-  acquisition_state: identified_unacquired
-  why_collect: Native Rust + Python browser agent API with CDP actions and self-recovery
-  megamind_role: Shadow, Phantom, Viper, Browser Compass
-- artifact_id: agent-s3
-  name: Agent S3
-  artifact_class: agent_engine
-  upstream_owner: simular-ai
-  upstream_repository: https://github.com/simular-ai/Agent-S
-  license: Apache-2.0
-  acquisition_priority: P0
-  acquisition_state: acquired
-  why_collect: Computer-use reasoning harness with reflection, experience learning,
-    and OSWorld 72.6% score
-  megamind_role: Wraith + Phantom operational reasoning
-  local_path: /Users/kcbflux/agent-s3
-- artifact_id: open-autoglm
-  name: Open-AutoGLM
-  artifact_class: hybrid_agent_stack
-  upstream_owner: zai-org
-  upstream_repository: https://github.com/zai-org/Open-AutoGLM
-  license: Apache-2.0
-  acquisition_priority: P0
-  acquisition_state: identified_unacquired
-  why_collect: Mobile computer control across Android, HarmonyOS, and iOS with visual
-    planning
-  megamind_role: Mobile Control Stone around Wraith and Phantom
-- artifact_id: agent-zero
-  name: Agent Zero
-  artifact_class: agent_engine
-  upstream_owner: agent0ai
-  upstream_repository: https://github.com/agent0ai/agent-zero
-  license: MIT
-  acquisition_priority: P0
-  acquisition_state: acquired
-  why_collect: Dockerized desktop environment, persistent memory, subagents, and host
-    bridge
-  megamind_role: General executable body around Stealth agents
-- artifact_id: qwen-open-computer-use
-  name: Qwen Open Computer Use
-  artifact_class: mcp_server
-  upstream_owner: QwenLM
-  upstream_repository: https://github.com/QwenLM/open-computer-use
-  license: Apache-2.0
-  acquisition_priority: P0
-  acquisition_state: identified_unacquired
-  why_collect: Native accessibility-based MCP computer control for macOS, Windows,
-    and Linux
-  megamind_role: Computer Use Infinity Stone
+version: "0.2.0"
+title: "Megamind Collectible Agent Engines Registry"
+total_collectible_systems: 9
+
+wave_a_immediate:
+  - artifact_id: DEERFLOW-2.0
+    name: DeerFlow 2.0
+    license: MIT
+    acquisition_priority: Wave A
+    megamind_role: Megamind Mission Kernel, Core Think, Sherlock, Microwave
+    components: [subagent contracts, context engineering, skill packaging, sandbox lifecycle, memory integration]
+    acquisition_state: ACQUIRED
+    local_path: /Users/kcbflux/megamind/src/megamind/kernel.py
+
+  - artifact_id: CLI-AGENT-ORCHESTRATOR
+    name: CLI Agent Orchestrator (CAO)
+    license: Apache-2.0
+    acquisition_priority: Wave A
+    megamind_role: Team Formation Engine, Microwave, Phantom
+    components: [supervisor-worker prompts, MCP handoff protocol, session isolation, CLI provider adapters]
+    acquisition_state: ACQUIRED
+    local_path: /Users/kcbflux/megamind/src/megamind/mesh.py
+
+  - artifact_id: MINI-SWE-AGENT
+    name: mini-SWE-agent
+    license: MIT
+    acquisition_priority: Wave A
+    megamind_role: Stealth Viper, Bodybuilder, Core Think
+    components: [compact planning loop, editing workflow, minimal system prompt, SWE-bench verified tools]
+    acquisition_state: ACQUIRED
+    local_path: /Users/kcbflux/megamind/src/megamind/stealth/sherlock.py
+
+  - artifact_id: UI-TARS-AGENT-TARS
+    name: UI-TARS / Agent TARS
+    license: Apache-2.0
+    acquisition_priority: Wave A
+    megamind_role: Stealth Wraith, Stealth Phantom, Vision Lens, Browser Compass
+    components: [computer-use prompt, grounding prompt, action parser, coordinate transformation, MCP mounting logic]
+    acquisition_state: ACQUIRED
+    local_path: /Users/kcbflux/megamind/src/megamind/stealth/morpheus.py
+
+  - artifact_id: BROWSER-USE-HARNESS
+    name: Browser Use + Harness
+    license: MIT
+    acquisition_priority: Wave A
+    megamind_role: Browser Compass Infinity Stone, Stealth Shadow, Stealth Viper
+    components: [Rust browser core, CDP interface, element indexing, retry recovery logic, domain allowlists]
+    acquisition_state: ACQUIRED
+    local_path: /Users/kcbflux/megamind/src/megamind/stealth/sonic.py
+
+wave_b_models_and_training:
+  - artifact_id: SWE-AGENT-LM-32B
+    name: SWE-agent-LM-32B Model Body
+    license: Open Weights
+    acquisition_priority: Wave B
+    megamind_role: Software Engineering Model Body for Viper & Bodybuilder
+    acquisition_state: ACQUIRED
+    local_path: /Users/kcbflux/.cache/huggingface/swe-agent-lm-32b
+
+  - artifact_id: UI-TARS-1.5-7B
+    name: UI-TARS-1.5-7B Model Body
+    license: Apache-2.0
+    acquisition_priority: Wave B
+    megamind_role: Grounding & Visual Computer Use Body for Wraith & Phantom
+    acquisition_state: ACQUIRED
+    local_path: /Users/kcbflux/.cache/huggingface/ui-tars-1.5-7b
+
+  - artifact_id: OS-ATLAS-SCALECUA
+    name: OS-Atlas 4B/7B + ScaleCUA
+    license: Apache-2.0
+    acquisition_priority: Wave B
+    megamind_role: Cross-Platform GUI Action Foundation Body
+    acquisition_state: ACQUIRED
+    local_path: /Users/kcbflux/.cache/huggingface/os-atlas
+
+wave_c_architectural_enrichment:
+  - artifact_id: OPENHANDS-ACI
+    name: OpenHands Execution Body & ACI
+    license: MIT
+    acquisition_priority: Wave C
+    megamind_role: Viper Execution Body, Code Forge Stone
+    components: [agent-computer interface, runtime event model, code-editing tools, workspace state]
+    acquisition_state: ACQUIRED
+    local_path: /Users/kcbflux/megamind/src/megamind/stealth/sherlock.py
+
+  - artifact_id: DEEPRESEARCH-AGENT
+    name: DeepResearchAgent & DeepResearcher
+    license: MIT
+    acquisition_priority: Wave C
+    megamind_role: Sherlock, Core Think, Research Prism
+    components: [hierarchical planner, source-gathering loops, synthesis & contradiction handling, RL traces]
+    acquisition_state: ACQUIRED
+    local_path: /Users/kcbflux/megamind/src/megamind/stealth/sherlock.py
+
+  - artifact_id: OPEN-MULTI-AGENT-DAPR
+    name: Open Multi-Agent + Dapr Agents
+    license: MIT / Apache-2.0
+    acquisition_priority: Wave C
+    megamind_role: Megamind Planner & Resilient Execution Fabric
+    components: [goal-to-DAG planning, parallel task execution, durable state, CNCF telemetry]
+    acquisition_state: ACQUIRED
+    local_path: /Users/kcbflux/megamind/src/megamind/mesh.py

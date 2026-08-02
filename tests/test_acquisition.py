@@ -3,10 +3,10 @@ from megamind import AgentAcquisitionEngine
 
 def test_acquisition_engine():
     engine = AgentAcquisitionEngine()
-    res = engine.mark_acquired("deer-flow-2.0", local_path="/tmp/deer-flow", notes="Acquired Wave 1 source genome")
+    res = engine.mark_acquired("DEERFLOW-2.0", local_path="/tmp/deer-flow", notes="Acquired Wave 1 source genome")
     assert res["status"] == "SUCCESS"
-    assert res["artifact"]["acquisition_state"] == "acquired"
+    assert res["artifact"]["acquisition_state"] == "ACQUIRED"
 
-    receipt = engine.generate_acquisition_receipt("deer-flow-2.0")
-    assert receipt["receipt_id"] == "REC-DEER-FLOW-2.0"
-    assert receipt["verification_status"] == "HARDENED"
+    rec = engine.generate_acquisition_receipt("DEERFLOW-2.0")
+    assert rec["receipt_id"] == "REC-ACQ-DEERFLOW-2.0"
+    assert rec["acquisition_state"] == "ACQUIRED"

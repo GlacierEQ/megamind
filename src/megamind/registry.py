@@ -1,133 +1,101 @@
+import os
 import json
+import yaml
 from pathlib import Path
 from typing import Dict, List, Any, Optional
-import jsonschema
-
-PISTON_TIERS = {
-    "Tier-0": ["MICROWAVE", "SUPERNOVA", "CORE-THINK", "BODYBUILDER"],
-    "Tier-1": ["SHERLOCK-ALPHA", "SONIC", "GHOST", "PHANTOM"],
-    "Tier-2": ["VIPER", "WRAITH", "SPECTER", "SHADOW"]
-}
-
-DEFAULT_AGENTS = [
-    {
-        "agent_id": "doctor_strange",
-        "name": "Doctor Strange",
-        "role": "Environmental Harmonics & Multiversal Router",
-        "pistons": ["CORE-THINK", "SPECTER"],
-        "model_preference": "gemini-3.6-flash-high"
-    },
-    {
-        "agent_id": "doc_ock",
-        "name": "Doc Ock",
-        "role": "Multi-Armed Piston Fusion & Execution Engine",
-        "pistons": ["MICROWAVE", "SUPERNOVA", "VIPER"],
-        "model_preference": "gemini-3.6-flash-high"
-    },
-    {
-        "agent_id": "morpheus",
-        "name": "Morpheus",
-        "role": "Behavioral Evolution & Intent Mapping Engine",
-        "pistons": ["PHANTOM", "GHOST", "SHADOW"],
-        "model_preference": "gemini-3.6-flash-high"
-    },
-    {
-        "agent_id": "sherlock_alpha",
-        "name": "Sherlock Alpha",
-        "role": "Forensic Intelligence & Proof-of-Delay Audit",
-        "pistons": ["SHERLOCK-ALPHA", "BODYBUILDER"],
-        "model_preference": "gemini-3.6-flash-high"
-    },
-    {
-        "agent_id": "wraith_specter",
-        "name": "Wraith Specter",
-        "role": "Memory-Mapped UI & Volatile Execution",
-        "pistons": ["WRAITH", "SONIC"],
-        "model_preference": "gemini-3.6-flash-high"
-    }
-]
 
 class MegamindRegistry:
-    def __init__(self, seed_defaults: bool = True):
+    """Sovereign Agent Registry managing 12 Pistons Matrix, Stealth organs, and collectible engines."""
+
+    def __init__(self, seed_defaults: bool = True, registry_dir: Optional[Path] = None):
+        if registry_dir is None:
+            registry_dir = Path(__file__).parent.parent.parent / "registry"
+        self.registry_dir = registry_dir
         self.agents: Dict[str, Dict[str, Any]] = {}
-        self.technology_map: Dict[str, Any] = {}
-        self.schema_dir = Path(__file__).parent.parent.parent / "schema"
-
         if seed_defaults:
-            self.load_default_agents()
+            self._seed_default_agents()
 
-    def load_collectible_agents(self, yaml_path: Optional[Path] = None) -> List[Dict[str, Any]]:
-        """Load collectible agent engines from registry YAML."""
-        if yaml_path is None:
-            yaml_path = Path(__file__).parent.parent.parent / "registry" / "collectible_agents.yml"
-        if yaml_path.exists():
-            import yaml
-            with open(yaml_path, "r", encoding="utf-8") as f:
-                data = yaml.safe_load(f)
-                return data.get("collectible_agents", [])
-        return []
+    def _seed_default_agents(self):
+        self.agents = {
+            "doctor_strange": {
+                "agent_id": "doctor_strange",
+                "name": "Doctor Strange (Supreme Orchestrator)",
+                "pistons": ["MICROWAVE", "SUPERNOVA", "CORE-THINK"],
+                "infinity_stones": ["Time Stone", "Mind Stone"],
+                "status": "ACTIVE"
+            },
+            "doc_ock": {
+                "agent_id": "doc_ock",
+                "name": "Doc Ock (Multi-Armed Mechanical Harness)",
+                "pistons": ["BODYBUILDER", "SHERLOCK-ALPHA"],
+                "infinity_stones": ["Power Stone", "Space Stone"],
+                "status": "ACTIVE"
+            },
+            "morpheus": {
+                "agent_id": "morpheus",
+                "name": "Morpheus (Matrix Vision Operator)",
+                "pistons": ["SONIC", "GHOST"],
+                "infinity_stones": ["Reality Stone"],
+                "status": "ACTIVE"
+            },
+            "sherlock_alpha": {
+                "agent_id": "sherlock_alpha",
+                "name": "Sherlock Alpha (Forensic & Legal Engine)",
+                "pistons": ["PHANTOM", "VIPER"],
+                "infinity_stones": ["Soul Stone"],
+                "status": "ACTIVE"
+            },
+            "wraith_specter": {
+                "agent_id": "wraith_specter",
+                "name": "Wraith Specter (Stealth Audit & Security Core)",
+                "pistons": ["WRAITH", "SPECTER", "SHADOW"],
+                "infinity_stones": ["Mind Stone", "Space Stone"],
+                "status": "ACTIVE"
+            }
+        }
 
-    def load_collectible_models(self, yaml_path: Optional[Path] = None) -> List[Dict[str, Any]]:
-        """Load collectible model bodies from registry YAML."""
-        if yaml_path is None:
-            yaml_path = Path(__file__).parent.parent.parent / "registry" / "collectible_models.yml"
-        if yaml_path.exists():
-            import yaml
-            with open(yaml_path, "r", encoding="utf-8") as f:
-                data = yaml.safe_load(f)
-                return data.get("collectible_models", [])
-        return []
+    def get_agent(self, agent_id: str) -> Optional[Dict[str, Any]]:
+        return self.agents.get(agent_id)
 
-    def load_default_agents(self):
-        """Seed registry with standard 5 sovereign agents covering all 12 Pistons."""
-        for agent in DEFAULT_AGENTS:
-            self.register_agent(**agent)
-
-    def validate_agent(self, agent_def: Dict[str, Any]) -> bool:
-        """Validate agent definition against JSON schema."""
-        schema_path = self.schema_dir / "agent.schema.json"
-        if schema_path.exists():
-            with open(schema_path, "r", encoding="utf-8") as f:
-                schema = json.load(f)
-            jsonschema.validate(instance=agent_def, schema=schema)
-        return True
-
-    def register_agent(
-        self,
-        agent_id: str,
-        name: str,
-        role: str,
-        pistons: List[str],
-        model_preference: str = "gemini-3.6-flash-high"
-    ) -> Dict[str, Any]:
-        """Register a new sovereign agent definition."""
-        agent_def = {
+    def register_agent(self, agent_id: str, name: str, role: str = "", pistons: Optional[List[str]] = None) -> Dict[str, Any]:
+        agent = {
             "agent_id": agent_id,
             "name": name,
             "role": role,
-            "pistons": pistons,
-            "model_preference": model_preference
+            "pistons": pistons or ["CORE-THINK"],
+            "status": "ACTIVE"
         }
-        self.validate_agent(agent_def)
-        self.agents[agent_id] = agent_def
-        return agent_def
+        self.agents[agent_id] = agent
+        return agent
 
-    def get_agent(self, agent_id: str) -> Optional[Dict[str, Any]]:
-        """Retrieve registered agent specification."""
-        return self.agents.get(agent_id)
+    def load_collectible_agents(self) -> List[Dict[str, Any]]:
+        path = self.registry_dir / "collectible_agents.yml"
+        if not path.exists():
+            return []
+        with open(path, "r", encoding="utf-8") as f:
+            data = yaml.safe_load(f)
+            items = []
+            for key in ["wave_a_immediate", "wave_b_models_and_training", "wave_c_architectural_enrichment"]:
+                items.extend(data.get(key, []))
+            return items
 
-    def load_technology_map(self, tech_map_path: Path) -> Dict[str, Any]:
-        """Load Tower of Babel technology export map."""
-        if tech_map_path.exists():
-            with open(tech_map_path, "r", encoding="utf-8") as f:
-                self.technology_map = json.load(f)
-        return self.technology_map
+    def load_collectible_models(self) -> List[Dict[str, Any]]:
+        path = self.registry_dir / "collectible_models.yml"
+        if not path.exists():
+            return []
+        with open(path, "r", encoding="utf-8") as f:
+            data = yaml.safe_load(f)
+            return data.get("models", [])
 
     def get_summary(self) -> Dict[str, Any]:
-        """Return operational state summary of Megamind."""
         return {
             "total_registered_agents": len(self.agents),
-            "agents": list(self.agents.keys()),
-            "pistons_matrix": PISTON_TIERS,
-            "technology_domains_loaded": len(self.technology_map.get("domains", {}))
+            "pistons_matrix": {
+                "RING_-3_HARDWARE_INTEGRATION": ["MICROWAVE", "SUPERNOVA", "CORE-THINK"],
+                "MECHANICAL_SWARM_OPERATORS": ["BODYBUILDER", "SHERLOCK-ALPHA", "SONIC"],
+                "STEALTH_SURVEILLANCE_LAYER": ["GHOST", "PHANTOM", "VIPER"],
+                "RESONANCE_AUDIT_GUARDIANS": ["WRAITH", "SPECTER", "SHADOW"]
+            },
+            "collectible_agents_count": len(self.load_collectible_agents()),
+            "collectible_models_count": len(self.load_collectible_models())
         }

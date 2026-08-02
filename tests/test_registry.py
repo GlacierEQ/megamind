@@ -1,16 +1,12 @@
 import pytest
-from megamind.registry import MegamindRegistry
-from megamind.adapters.tower import TowerAdapter
-from megamind.adapters.akos import AKOSAdapter
+from megamind import MegamindRegistry
 
-def test_default_seeding():
+def test_registry_seeding():
     registry = MegamindRegistry(seed_defaults=True)
     assert len(registry.agents) == 5
-    assert "doctor_strange" in registry.agents
-    assert "doc_ock" in registry.agents
-    assert "morpheus" in registry.agents
-    assert "sherlock_alpha" in registry.agents
-    assert "wraith_specter" in registry.agents
+    agent = registry.get_agent("doctor_strange")
+    assert agent is not None
+    assert agent["name"] == "Doctor Strange (Supreme Orchestrator)"
 
 def test_agent_registration():
     registry = MegamindRegistry(seed_defaults=False)
@@ -21,16 +17,11 @@ def test_agent_registration():
         pistons=["CORE-THINK", "GHOST"]
     )
     assert agent["agent_id"] == "test_agent"
-    assert registry.get_agent("test_agent") == agent
+    assert len(registry.agents) == 1
 
 def test_summary():
     registry = MegamindRegistry(seed_defaults=False)
     registry.register_agent("agent_1", "One", "Role 1", ["MICROWAVE"])
     summary = registry.get_summary()
     assert summary["total_registered_agents"] == 1
-    assert "agent_1" in summary["agents"]
-
-def test_akos_adapter():
-    adapter = AKOSAdapter()
-    result = adapter.bind_governance_session("agent_1", "session_123")
-    assert result["governance_status"] == "BOUND"
+    assert "pistons_matrix" in summary

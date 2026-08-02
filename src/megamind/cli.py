@@ -194,14 +194,15 @@ def main():
 
     elif args.command == "list-collectibles":
         print("🏆 [MEGAMIND COLLECTIBLE ENGINES & MODELS]")
-        print("\n--- Agent Engines & Frameworks ---")
         agents = registry.load_collectible_agents()
+        print(f"\n--- Collectible Agent Systems ({len(agents)} Total across Waves A, B, C) ---")
         for item in agents:
-            print(f"  • [{item['acquisition_priority']}] {item['name']:<30} | {item['acquisition_state']:<22} | Role: {item['megamind_role']}")
+            prio = item.get('acquisition_priority', 'Wave A')
+            print(f"  • [{prio:<6}] {item['name']:<35} | {item['acquisition_state']:<10} | Role: {item['megamind_role']}")
         print("\n--- Downloadable Model Bodies ---")
         models = registry.load_collectible_models()
         for item in models:
-            print(f"  • [{item['acquisition_priority']}] {item['name']:<35} | {item['acquisition_state']:<22} | Params: {item['parameter_count']}")
+            print(f"  • [{item['acquisition_priority']}] {item['name']:<35} | {item['acquisition_state']:<10} | Params: {item['parameter_count']}")
 
     elif args.command == "acquire":
         res = acquirer.mark_acquired(args.artifact_id, local_path=args.path, notes=args.notes)

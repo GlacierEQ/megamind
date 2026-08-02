@@ -1,0 +1,17 @@
+README.md
+pyproject.toml
+src/megamind/__init__.py
+src/megamind/async_engine.py
+src/megamind/cli.py
+src/megamind/registry.py
+src/megamind.egg-info/PKG-INFO
+src/megamind.egg-info/SOURCES.txt
+src/megamind.egg-info/dependency_links.txt
+src/megamind.egg-info/entry_points.txt
+src/megamind.egg-info/requires.txt
+src/megamind.egg-info/top_level.txt
+src/megamind/adapters/__init__.py
+src/megamind/adapters/akos.py
+src/megamind/adapters/tower.py
+tests/test_async.py
+tests/test_registry.py

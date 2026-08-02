@@ -75,8 +75,9 @@ class MegamindRegistry:
         with open(path, "r", encoding="utf-8") as f:
             data = yaml.safe_load(f)
             items = []
-            for key in ["wave_a_immediate", "wave_b_models_and_training", "wave_c_architectural_enrichment"]:
-                items.extend(data.get(key, []))
+            waves = data.get("collection_waves", {})
+            for key, wave_items in waves.items():
+                items.extend(wave_items)
             return items
 
     def load_collectible_models(self) -> List[Dict[str, Any]]:
@@ -85,7 +86,11 @@ class MegamindRegistry:
             return []
         with open(path, "r", encoding="utf-8") as f:
             data = yaml.safe_load(f)
-            return data.get("models", [])
+            items = []
+            waves = data.get("collection_waves", {})
+            for key, wave_items in waves.items():
+                items.extend(wave_items)
+            return items
 
     def get_summary(self) -> Dict[str, Any]:
         return {

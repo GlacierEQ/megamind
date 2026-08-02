@@ -193,16 +193,17 @@ def main():
         print(json.dumps(res, indent=2))
 
     elif args.command == "list-collectibles":
-        print("🏆 [MEGAMIND COLLECTIBLE ENGINES & MODELS]")
+        print("🏆 [MEGAMIND MASTER REGISTER: ENGINES & MODEL BODIES]")
         agents = registry.load_collectible_agents()
-        print(f"\n--- Collectible Agent Systems ({len(agents)} Total across Waves A, B, C) ---")
+        print(f"\n--- Collectible Agent Engines ({len(agents)} Total across Waves 1 & 4) ---")
         for item in agents:
-            prio = item.get('acquisition_priority', 'Wave A')
-            print(f"  • [{prio:<6}] {item['name']:<35} | {item['acquisition_state']:<10} | Role: {item['megamind_role']}")
-        print("\n--- Downloadable Model Bodies ---")
+            linked = ', '.join(item.get('linked_stealth_agents', []))
+            print(f"  • [{item['artifact_id']:<26}] {item['name']:<30} | License: {item['license']:<10} | Stealth: {linked}")
+        print("\n--- Downloadable Model Bodies (9 Total across Waves 2 & 3) ---")
         models = registry.load_collectible_models()
         for item in models:
-            print(f"  • [{item['acquisition_priority']}] {item['name']:<35} | {item['acquisition_state']:<10} | Params: {item['parameter_count']}")
+            linked = ', '.join(item.get('linked_stealth_agents', []))
+            print(f"  • [{item['artifact_id']:<26}] {item['name']:<25} ({item.get('parameter_count', 'N/A'):<4}) | License: {item['license']:<10} | Stealth: {linked}")
 
     elif args.command == "acquire":
         res = acquirer.mark_acquired(args.artifact_id, local_path=args.path, notes=args.notes)

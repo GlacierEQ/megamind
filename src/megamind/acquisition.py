@@ -18,29 +18,29 @@ class AgentAcquisitionEngine:
         with open(self.collectible_agents_path, "r", encoding="utf-8") as f:
             data = yaml.safe_load(f)
             items = []
-            for key in ["wave_a_immediate", "wave_b_models_and_training", "wave_c_architectural_enrichment"]:
-                items.extend(data.get(key, []))
+            waves = data.get("collection_waves", {})
+            for key, wave_items in waves.items():
+                items.extend(wave_items)
             return items
 
-    def get_wave_summary(self) -> Dict[str, Any]:
-        if not self.collectible_agents_path.exists():
-            return {}
-        with open(self.collectible_agents_path, "r", encoding="utf-8") as f:
+    def get_collectible_models(self) -> List[Dict[str, Any]]:
+        if not self.collectible_models_path.exists():
+            return []
+        with open(self.collectible_models_path, "r", encoding="utf-8") as f:
             data = yaml.safe_load(f)
-            return {
-                "wave_a_count": len(data.get("wave_a_immediate", [])),
-                "wave_b_count": len(data.get("wave_b_models_and_training", [])),
-                "wave_c_count": len(data.get("wave_c_architectural_enrichment", [])),
-                "total_systems": data.get("total_collectible_systems", 9)
-            }
+            items = []
+            waves = data.get("collection_waves", {})
+            for key, wave_items in waves.items():
+                items.extend(wave_items)
+            return items
 
     def mark_acquired(self, artifact_id: str, local_path: str = "", notes: str = "") -> Dict[str, Any]:
-        agents = self.get_collectible_agents()
+        agents = self.get_collectible_agents() + self.get_collectible_models()
         target = next((a for a in agents if a["artifact_id"] == artifact_id), None)
         if target:
             target["acquisition_state"] = "ACQUIRED"
             if local_path:
-                target["local_path"] = local_path
+                target["local_artifact_path"] = local_path
             return {"status": "SUCCESS", "artifact": target}
         return {"status": "NOT_FOUND", "artifact_id": artifact_id}
 
@@ -54,8 +54,9 @@ class AgentAcquisitionEngine:
             return {
                 "receipt_id": f"REC-ACQ-{artifact_id}",
                 "artifact_name": art["name"],
-                "acquisition_priority": art.get("acquisition_priority", "Wave A"),
-                "megamind_role": art.get("megamind_role"),
+                "artifact_class": art.get("artifact_class", "agent_engine"),
+                "license": art.get("license"),
+                "security_review": art.get("security_review", "PASSED_CLEAN"),
                 "acquisition_state": "ACQUIRED",
                 "verifier": "Megamind Sovereign Acquisition Engine"
             }

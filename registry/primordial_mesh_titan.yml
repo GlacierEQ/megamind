@@ -1,0 +1,80 @@
+version: "1.0.0"
+codex_name: "BLACKLINE OMEGA-999"
+system_identity: "Primordial Mesh Titan"
+recovery_status: "PROMPT_RECOVERED + PERSONA_RECOVERED + CONFIG_RECOVERED + CONTINUE_INTEGRATION_RECOVERED"
+
+titan_stealth_operators:
+  - id: shadow_orchestrator
+    name: Shadow Orchestrator
+    role: Mesh Coordination & Swarm Dispatch
+    derived_from: Shadow
+    lineage_relationship: specialized_as
+
+  - id: ghost_integrator
+    name: Ghost Integrator
+    role: MCP & API Discovery
+    derived_from: Ghost
+    lineage_relationship: specialized_as
+
+  - id: phantom_deployer
+    name: Phantom Deployer
+    role: Infrastructure Deployment & Evolution
+    derived_from: Phantom
+    lineage_relationship: specialized_as
+
+  - id: wraith_guardian
+    name: Wraith Guardian
+    role: Credential & Access Management
+    derived_from: Wraith
+    lineage_relationship: specialized_as
+
+  - id: specter_analyst
+    name: Specter Analyst
+    role: Legal & Forensic Analysis
+    derived_from: Specter
+    lineage_relationship: specialized_as
+
+  - id: vapor_synthesizer
+    name: Vapor Synthesizer
+    role: Knowledge & Multi-Source Fusion
+    derived_from: null
+    lineage_relationship: titan_new_specialist
+
+  - id: mirage_communicator
+    name: Mirage Communicator
+    role: Voice Interface & Multimodal Communication
+    derived_from: null
+    lineage_relationship: titan_new_specialist
+
+  - id: eclipse_validator
+    name: Eclipse Validator
+    role: Truth Enforcement & Contradiction Audit
+    derived_from: null
+    lineage_relationship: titan_new_specialist
+
+  - id: void_optimizer
+    name: Void Optimizer
+    role: Resource & Latency Optimization
+    derived_from: null
+    lineage_relationship: titan_new_specialist
+
+mastermind_command_layer:
+  - role: Orchestrator
+  - role: Navigator
+  - role: Executor
+  - role: Validator
+  - role: Optimizer
+  - role: Guardian
+  - role: Synthesizer
+  - role: Communicator
+  - role: Analyst
+
+continue_routes:
+  - id: continue-openrouter
+    locality: remote
+  - id: continue-openai-compatible
+    locality: remote
+  - id: continue-ollama
+    locality: local
+  - id: continue-lmstudio
+    locality: local

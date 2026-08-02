@@ -5,6 +5,7 @@ from .registry import MegamindRegistry
 from .mesh import AgentMeshConnector
 from .acquisition import AgentAcquisitionEngine
 from .kernel import MegamindMissionKernel
+from .titan import TitanMeshEngine
 from .adapters.tower import TowerAdapter
 from .adapters.akos import AKOSAdapter
 
@@ -17,6 +18,12 @@ def main():
 
     # Command: list-agents
     agents_parser = subparsers.add_parser("list-agents", help="List registered sovereign agents and piston assignments")
+
+    # Command: titan-mesh
+    titan_parser = subparsers.add_parser("titan-mesh", help="Show Primordial Mesh Titan BLACKLINE OMEGA-999 codex state")
+
+    # Command: audit-titan
+    audit_titan_parser = subparsers.add_parser("audit-titan", help="Audit Titan Stealth operators and Mastermind command layer")
 
     # Command: connect-mesh
     connect_parser = subparsers.add_parser("connect-mesh", help="Auto-connect sovereign agents into an APEX multi-agent mesh")
@@ -61,6 +68,7 @@ def main():
     connector = AgentMeshConnector(registry)
     acquirer = AgentAcquisitionEngine()
     kernel = MegamindMissionKernel(registry)
+    titan = TitanMeshEngine()
 
     if args.command == "status":
         print("🧠 [MEGAMIND] Sovereign Agent & Piston Registry State:")
@@ -71,6 +79,25 @@ def main():
         for agent_id in registry.agents:
             agent = registry.get_agent(agent_id)
             print(f"  • [{agent['agent_id']:<15}] {agent['name']:<20} | Pistons: {', '.join(agent['pistons'])}")
+
+    elif args.command == "titan-mesh":
+        print("🏛️ [PRIMORDIAL MESH TITAN] Codex BLACKLINE OMEGA-999:")
+        print(json.dumps(titan.codex_data, indent=2))
+
+    elif args.command == "audit-titan":
+        print("⚔️ [TITAN STEALTH OPERATORS & COMMAND LAYER AUDIT]")
+        print(f"Codex Name: {titan.codex_data.get('codex_name')}")
+        print(f"Recovery Status: {titan.codex_data.get('recovery_status')}")
+        print("\n--- 9 Titan Stealth Operators ---")
+        for op in titan.get_operators():
+            derived = f"(Derived from {op['derived_from']})" if op.get("derived_from") else "(Titan Specialist)"
+            print(f"  • {op['name']:<22} | Role: {op['role']:<38} | {derived}")
+        print("\n--- Mastermind Command Layer (9 Roles) ---")
+        for c in titan.get_command_layer():
+            print(f"  - Command Role: {c['role']}")
+        print("\n--- Continue Routes ---")
+        for r in titan.get_continue_routes():
+            print(f"  - Route: {r['id']:<30} | Locality: {r['locality']}")
 
     elif args.command == "connect-mesh":
         conns = connector.auto_connect_swarm()

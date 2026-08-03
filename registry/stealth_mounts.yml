@@ -1,0 +1,63 @@
+version: "1.0.0"
+title: "Megamind Rescued Agent Mount Configurations"
+description: "Explicit mount mappings linking rescued models and session bodies to their stealth agent identities."
+
+mounts:
+  - mount_id: MNT-001
+    stealth_agent_identity: stealth_viper
+    source_record: SA-028
+    model_body: "stepfun/step-3.7-flash"
+    prompt_source: "cline_session_1782461631526"
+    status: MOUNTED
+    notes: "Rescued from Cline logs. Exceptional MCP/filesystem integrations."
+
+  - mount_id: MNT-002
+    stealth_agent_identity: stealth_microwave
+    source_record: SA-024
+    model_body: "deepseek/deepseek-v4-flash"
+    prompt_source: "cline_session_1782605822624_uummg"
+    status: MOUNTED
+    notes: "Rescued from Cline logs. High-throughput command execution."
+
+  - mount_id: MNT-003
+    stealth_agent_identity: core_think
+    source_record: SA-029
+    model_body: "kilo-v4"
+    prompt_source: "kilo_config_main"
+    status: MOUNTED
+    notes: "Rescued from Kilo config. Primary Kilo coding engine."
+
+apex_hybrid_stacks:
+  - mount_id: APEX-001
+    stealth_agent_identity: core_think
+    function_engine: ENGINE-DEERFLOW-2.0
+    form_weights:
+      - SA-027 # NVIDIA Nemotron 3 Ultra (550B)
+      - SA-022 # INTELLECT-3 (106B)
+    status: CONFIGURED
+    notes: "Unmatched architectural reasoning, deep planning, and multi-agent dispatching."
+
+  - mount_id: APEX-002
+    stealth_agent_identity: stealth_viper
+    function_engine: ENGINE-OPENHANDS
+    form_weights:
+      - SA-010 # Devstral 2 (Repo-scale coding)
+      - SWE-agent-LM-32B # from collectible_models.yml
+    status: CONFIGURED
+    notes: "Autonomous repository-scale engineering, bug fixing, and feature implementation."
+
+  - mount_id: APEX-003
+    stealth_agent_identity: stealth_wraith
+    function_engine: ENGINE-AGENT-S3
+    form_weights:
+      - Fara1.5-27B # from collectible_models.yml
+    status: CONFIGURED
+    notes: "Screen-reading, mouse-driving, visual reasoning for absolute desktop automation."
+
+  - mount_id: APEX-004
+    stealth_agent_identity: stealth_phantom
+    function_engine: ENGINE-CAO-AWS
+    form_weights:
+      - SA-025 # GLM-5.2 (1M token stable context)
+    status: CONFIGURED
+    notes: "Ingesting massive system logs, managing isolated CLI sessions, and orchestrating rapid deployments."

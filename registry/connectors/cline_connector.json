@@ -1,0 +1,47 @@
+{
+  "name": "Cline Master Connector",
+  "version": "4.0.12",
+  "account": {
+    "provider": "cline",
+    "accountId": "usr-01JZKSBH23CWVX9C4489NXP0V2",
+    "email": "glacier.equilibrium@gmail.com",
+    "displayName": "casey",
+    "authType": "WorkOS OAuth",
+    "tokenEndpoint": "https://api.workos.com/user_management/client_01K3A541FN8TA3EPHTD2325AR"
+  },
+  "activeModes": {
+    "planMode": {
+      "provider": "cline",
+      "modelId": "deepseek/deepseek-v4-flash",
+      "contextWindow": 1048576,
+      "maxTokens": 393216,
+      "reasoningEffort": "xhigh",
+      "thinkingConfig": {
+        "maxBudget": 6000
+      }
+    },
+    "actMode": {
+      "provider": "cline",
+      "modelId": "stepfun/step-3.7-flash",
+      "contextWindow": 262144,
+      "maxTokens": 256000,
+      "reasoningEffort": "medium",
+      "thinkingConfig": {
+        "maxBudget": 6000
+      }
+    }
+  },
+  "mcpSettingsPath": "/Users/kcbflux/Library/Application Support/Antigravity IDE/User/globalStorage/saoudrizwan.claude-dev/settings/cline_mcp_settings.json",
+  "autoApprovalSettings": {
+    "enabled": true,
+    "maxRequests": 20,
+    "actions": {
+      "readFiles": true,
+      "editFiles": true,
+      "executeSafeCommands": true,
+      "executeAllCommands": true,
+      "useBrowser": true,
+      "useMcp": true
+    }
+  }
+}

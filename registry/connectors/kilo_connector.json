@@ -1,0 +1,28 @@
+{
+  "name": "Kilo Engine Connector",
+  "version": "4.0.0",
+  "providers": {
+    "primary": {
+      "name": "kilo-code",
+      "model": "kilo-v4",
+      "maxTokens": 4096,
+      "optimization": {
+        "level": "maximum",
+        "compression": true,
+        "caching": true
+      }
+    },
+    "fallback": {
+      "name": "openai",
+      "endpoint": "https://api.openai.com/v1/chat/completions",
+      "model": "gpt-4",
+      "maxTokens": 4096
+    }
+  },
+  "security": {
+    "encryption": "AES-256",
+    "keyRotation": "30d",
+    "rateLimit": 1000
+  },
+  "configLocation": "/Users/kcbflux/.kilo/configs/main.json"
+}

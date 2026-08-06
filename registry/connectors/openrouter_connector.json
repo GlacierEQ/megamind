@@ -1,0 +1,17 @@
+{
+  "name": "OpenRouter Gateway Connector",
+  "provider": "openrouter",
+  "apiEndpoint": "https://openrouter.ai/api/v1",
+  "activeRoutes": {
+    "freeRouter": "openrouter/free",
+    "grok41Fast": "xai/grok-4.1-fast-think",
+    "gpt41Quasar": "openai/gpt-4.1-quasar-alpha",
+    "devstral2": "mistralai/devstral-2",
+    "glm5Pony": "zai/glm-5",
+    "mimoV2Pro": "xiaomi/mimo-v2-pro"
+  },
+  "sourceConfigurations": [
+    "/Users/kcbflux/.continue/config.yaml",
+    "/Users/kcbflux/.cline/data/settings/providers.json"
+  ]
+}

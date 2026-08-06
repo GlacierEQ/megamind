@@ -1,0 +1,140 @@
+name: Main Continue AI Gateway Config
+version: 1.0.0
+schema: v1
+
+models:
+  # === continue-openrouter ===
+  - name: OpenRouter Free Router
+    provider: openrouter
+    model: openrouter/free
+    apiKey: ${OPENROUTER_API_KEY}
+    roles:
+      - chat
+      - edit
+
+  - name: Sherlock Think (Grok 4.1 Fast)
+    provider: openrouter
+    model: xai/grok-4.1-fast-think
+    apiKey: ${OPENROUTER_API_KEY}
+    roles:
+      - chat
+
+  - name: Quasar Alpha (GPT-4.1)
+    provider: openrouter
+    model: openai/gpt-4.1-quasar-alpha
+    apiKey: ${OPENROUTER_API_KEY}
+    roles:
+      - chat
+
+  - name: Spectre (Devstral 2)
+    provider: openrouter
+    model: mistralai/devstral-2
+    apiKey: ${OPENROUTER_API_KEY}
+    roles:
+      - chat
+
+  - name: Pony Alpha (GLM-5)
+    provider: openrouter
+    model: zai/glm-5
+    apiKey: ${OPENROUTER_API_KEY}
+    roles:
+      - chat
+
+  - name: Hunter Alpha (MiMo-V2-Pro)
+    provider: openrouter
+    model: xiaomi/mimo-v2-pro
+    apiKey: ${OPENROUTER_API_KEY}
+    roles:
+      - chat
+
+  # === continue-openai-compatible ===
+  - name: DeepSeek V4 Flash
+    provider: openai
+    model: deepseek/deepseek-v4-flash
+    apiKey: ${DEEPSEEK_PRIMARY_KEY}
+    apiBase: https://api.deepseek.com/v1
+    roles:
+      - chat
+      - edit
+
+  - name: Claude Sonnet 4.5
+    provider: anthropic
+    model: anthropic/claude-sonnet-4.5
+    apiKey: ${ANTHROPIC_API_KEY}
+    roles:
+      - chat
+
+  - name: GPT-4o
+    provider: openai
+    model: gpt-4o
+    apiKey: ${OPENAI_API_KEY}
+    roles:
+      - chat
+      - edit
+
+  # === continue-ollama (Stealth Personas) ===
+  - name: Stealth Microwave (Diagnostics)
+    provider: ollama
+    model: stealth-microwave
+    apiBase: http://127.0.0.1:11434
+    roles:
+      - chat
+
+  - name: Stealth Polaris (Navigation)
+    provider: ollama
+    model: stealth-polaris
+    apiBase: http://127.0.0.1:11434
+    roles:
+      - chat
+
+  - name: Stealth Sherlock (Investigation)
+    provider: ollama
+    model: stealth-sherlock
+    apiBase: http://127.0.0.1:11434
+    roles:
+      - chat
+
+  - name: Stealth Viper (Strike)
+    provider: ollama
+    model: stealth-viper
+    apiBase: http://127.0.0.1:11434
+    roles:
+      - chat
+
+  - name: Stealth Supernova (Power)
+    provider: ollama
+    model: stealth-supernova
+    apiBase: http://127.0.0.1:11434
+    roles:
+      - chat
+
+  - name: Stealth Sonic (Speed)
+    provider: ollama
+    model: stealth-sonic
+    apiBase: http://127.0.0.1:11434
+    roles:
+      - chat
+
+  - name: Stealth Specter (Ghost)
+    provider: ollama
+    model: stealth-specter
+    apiBase: http://127.0.0.1:11434
+    roles:
+      - chat
+
+  - name: Stealth Team (Coordinator)
+    provider: ollama
+    model: stealth-team
+    apiBase: http://127.0.0.1:11434
+    roles:
+      - chat
+
+  # === continue-lmstudio ===
+  - name: LM Studio (Local)
+    provider: openai-compatible
+    model: local-model
+    apiBase: http://127.0.0.1:1234/v1
+    apiKey: lm-studio
+    roles:
+      - chat
+      - autocomplete

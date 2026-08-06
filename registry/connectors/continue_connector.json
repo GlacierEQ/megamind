@@ -1,0 +1,61 @@
+{
+  "name": "Continue AI Extension Connector",
+  "version": "1.0.0",
+  "configFile": "/Users/kcbflux/.continue/config.yaml",
+  "indexing": {
+    "disableIndexing": true
+  },
+  "providers": [
+    {
+      "type": "openrouter",
+      "models": [
+        "openrouter/free",
+        "xai/grok-4.1-fast-think",
+        "openai/gpt-4.1-quasar-alpha",
+        "mistralai/devstral-2",
+        "zai/glm-5",
+        "xiaomi/mimo-v2-pro"
+      ]
+    },
+    {
+      "type": "openai",
+      "baseUrl": "https://api.deepseek.com/v1",
+      "models": [
+        "deepseek/deepseek-v4-flash"
+      ]
+    },
+    {
+      "type": "anthropic",
+      "models": [
+        "anthropic/claude-sonnet-4.5"
+      ]
+    },
+    {
+      "type": "openai",
+      "models": [
+        "gpt-4o"
+      ]
+    },
+    {
+      "type": "ollama",
+      "baseUrl": "http://127.0.0.1:11434",
+      "models": [
+        "stealth-microwave",
+        "stealth-polaris",
+        "stealth-sherlock",
+        "stealth-viper",
+        "stealth-supernova",
+        "stealth-sonic",
+        "stealth-specter",
+        "stealth-team"
+      ]
+    },
+    {
+      "type": "lmstudio",
+      "baseUrl": "http://127.0.0.1:1234/v1",
+      "models": [
+        "local-model"
+      ]
+    }
+  ]
+}

@@ -24,16 +24,37 @@ def test_tower_adapter_has_no_implicit_workstation_path(monkeypatch) -> None:
     }
 
 
-def test_tower_adapter_reads_only_explicit_local_root(tmp_path: Path) -> None:
+def test_tower_adapter_rejects_regular_file_root(tmp_path: Path) -> None:
+    file_root = tmp_path / "not-a-directory"
+    file_root.write_text("x", encoding="utf-8")
+    adapter = TowerAdapter(file_root)
+    assert adapter.is_available() is False
+    assert adapter.sync_technology_map()["status"] == "TOWER_NOT_CONFIGURED_OR_FOUND"
+
+
+def test_tower_adapter_reads_only_valid_explicit_local_map(tmp_path: Path) -> None:
     generated = tmp_path / "generated"
     generated.mkdir()
     (generated / "megamind.technology-map.json").write_text(
-        '{"domains":{"python":{"language":"python"}}}', encoding="utf-8"
+        '{"version":"1","domains":{"python":{"language":"python"}},'
+        '"active_exhibits":[]}',
+        encoding="utf-8",
     )
     adapter = TowerAdapter(tmp_path)
     result = adapter.sync_technology_map()
     assert result["status"] == "LOCAL_MAP_READ"
     assert result["domains"]["python"]["language"] == "python"
+
+
+def test_tower_adapter_rejects_malformed_domain_shape(tmp_path: Path) -> None:
+    generated = tmp_path / "generated"
+    generated.mkdir()
+    (generated / "megamind.technology-map.json").write_text(
+        '{"version":"1","domains":[],"active_exhibits":[]}', encoding="utf-8"
+    )
+    result = TowerAdapter(tmp_path).sync_technology_map()
+    assert result["status"] == "INVALID_LOCAL_MAP"
+    assert result["domains"] == {}
 
 
 def test_readme_keeps_integration_claims_bounded() -> None:

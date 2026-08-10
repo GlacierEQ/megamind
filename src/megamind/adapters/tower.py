@@ -5,6 +5,9 @@ import os
 from pathlib import Path
 from typing import Any, Dict
 
+from jsonschema import ValidationError
+from jsonschema.validators import validator_for
+
 
 class TowerAdapter:
     """Read an explicitly configured local Tower technology-map surface.
@@ -25,18 +28,43 @@ class TowerAdapter:
         )
 
     def is_available(self) -> bool:
-        """Return true only when an explicitly configured Tower root exists."""
-        return self.tower_root is not None and self.tower_root.exists()
+        """Return true only when an explicitly configured Tower root is a directory."""
+        return self.tower_root is not None and self.tower_root.is_dir()
+
+    @staticmethod
+    def _technology_map_schema() -> Dict[str, Any]:
+        repository_root = Path(__file__).resolve().parents[3]
+        schema_path = repository_root / "schema" / "technology-map.schema.json"
+        with schema_path.open("r", encoding="utf-8") as handle:
+            schema = json.load(handle)
+        if not isinstance(schema, dict):
+            raise ValueError("technology-map schema must be a JSON object")
+        return schema
 
     def sync_technology_map(self) -> Dict[str, Any]:
-        """Read a local generated map, or classify local language directories."""
+        """Read a validated local generated map, or classify local language directories."""
         if not self.is_available() or self.tower_root is None:
             return {"status": "TOWER_NOT_CONFIGURED_OR_FOUND", "domains": {}}
 
         if self.megamind_map is not None and self.megamind_map.exists():
-            with self.megamind_map.open("r", encoding="utf-8") as handle:
-                data = json.load(handle)
-            return {"status": "LOCAL_MAP_READ", "domains": data.get("domains", {})}
+            try:
+                with self.megamind_map.open("r", encoding="utf-8") as handle:
+                    data = json.load(handle)
+                if not isinstance(data, dict):
+                    raise ValueError("technology map must be a JSON object")
+                schema = self._technology_map_schema()
+                validator = validator_for(schema)(schema)
+                validator.validate(data)
+                domains = data.get("domains")
+                if not isinstance(domains, dict):
+                    raise ValueError("technology map domains must be an object")
+            except (OSError, json.JSONDecodeError, ValidationError, ValueError) as exc:
+                return {
+                    "status": "INVALID_LOCAL_MAP",
+                    "domains": {},
+                    "error": str(exc),
+                }
+            return {"status": "LOCAL_MAP_READ", "domains": domains}
 
         languages_dir = self.tower_root / "languages"
         domains: Dict[str, Dict[str, str]] = {}

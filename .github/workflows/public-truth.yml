@@ -55,7 +55,12 @@ jobs:
               schema = json.loads(path.read_text(encoding="utf-8"))
               validator_for(schema).check_schema(schema)
 
-          for path in sorted(Path("registry").glob("*.yml")):
+          yaml_paths = sorted(
+              path
+              for path in Path("registry").rglob("*")
+              if path.is_file() and path.suffix.lower() in {".yml", ".yaml"}
+          )
+          for path in yaml_paths:
               yaml.safe_load(path.read_text(encoding="utf-8"))
 
       - name: Verify public truth boundary

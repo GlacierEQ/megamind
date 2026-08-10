@@ -1,48 +1,75 @@
-# 🧠 Megamind
+# Megamind
 
-**Sovereign Agent Registry, Capability Map & Piston Integration Core**
+**Local agent registry, schema, capability-taxonomy, and orchestration reference toolkit.**
 
-`megamind` is the central specification and runtime registry governing sovereign AI agent definitions, 12 Pistons capability contracts, and technology mapping for the GlacierEQ APEX ecosystem.
+`megamind` provides a Python package for registering agent records, loading repository-owned YAML registries, validating/working with local schemas, and exercising local orchestration/reference mechanisms.
 
----
+It does **not** establish that every named agent, piston, sibling repository, model provider, connector, or hardware target is live, deployed, connected, or externally authorized.
 
-## 🏛️ Architecture & Schemas
+## Verified repository surfaces
 
-- **Agent Schema**: [`schema/agent.schema.json`](schema/agent.schema.json) — Formal spec for multi-agent roles, models, and boundaries.
-- **Piston Schema**: [`schema/piston.schema.json`](schema/piston.schema.json) — 12 Pistons hardware/capability assignments (Ring -3).
-- **Technology Map Schema**: [`schema/technology-map.schema.json`](schema/technology-map.schema.json) — Tower of Babel cross-language integration contracts.
+- [`src/megamind/registry.py`](src/megamind/registry.py) — in-memory agent registration plus YAML registry loading.
+- [`schema/`](schema/) — JSON schemas for agents, pistons, technology maps, and collectible records.
+- [`registry/`](registry/) — repository-owned YAML configuration/reference data.
+- [`src/megamind/`](src/megamind/) — local registry, kernel, mesh, acquisition, scanner, tranche, async, and adapter code.
+- [`tests/`](tests/) — repository-local regression tests.
+- [`src/megamind/adapters/tower.py`](src/megamind/adapters/tower.py) — optional local-file adapter that requires an explicit path or `MEGAMIND_TOWER_ROOT`; no workstation path or live sibling integration is assumed.
 
----
-
-## 🚀 Quickstart
+## Quickstart
 
 ```python
 from megamind import MegamindRegistry
-from megamind.adapters.tower import TowerAdapter
 
-# Initialize Megamind Registry
-registry = MegamindRegistry()
-
-# Register core agent profile
+registry = MegamindRegistry(seed_defaults=False)
 registry.register_agent(
-    agent_id="doctor_strange",
-    name="Doctor Strange",
-    role="Environmental Harmonics & Multiversal Router",
-    pistons=["CORE-THINK", "SPECTER"]
+    agent_id="verification_unit",
+    name="Verification Unit",
+    role="Repository-local verification",
+    pistons=["CORE-THINK"],
 )
 
 print(registry.get_summary())
 ```
 
----
+The built-in default agent/piston names are taxonomy/reference labels used by the local registry. Labels such as `HARDWARE`, `STEALTH`, or named fictional roles are **not evidence of hardware operation, surveillance, autonomous authority, or production deployment**.
 
-## 🔗 Connected Ecosystem
+## Optional Tower adapter
 
-- **Tower of Babel**: [`GlacierEQ/the-tower-of-babel`](https://github.com/GlacierEQ/the-tower-of-babel)
-- **AKOS**: [`GlacierEQ/AKOS`](https://github.com/GlacierEQ/AKOS)
-- **Pro-Mastermind**: [`GlacierEQ/Pro-Mastermind`](https://github.com/GlacierEQ/Pro-Mastermind)
+```python
+from pathlib import Path
+from megamind.adapters.tower import TowerAdapter
 
----
+adapter = TowerAdapter(Path("/path/to/the-tower-of-babel"))
+result = adapter.sync_technology_map()
+```
+
+The adapter only reads an explicitly configured local directory. A repository link or local map read does not prove runtime connectivity between Megamind and another repository.
+
+## Native proof
+
+```bash
+python -m pip install -e ".[dev]"
+pytest -q
+```
+
+The Public Truth Gate runs the complete test suite on Python 3.11 and 3.13, validates package/version identity, parses repository YAML, validates JSON schema syntax, and binds pull-request proof to the exact source head and base ancestry.
+
+## Evidence boundary
+
+This public repository does **not** claim:
+
+- live operation of a GlacierEQ-wide agent fleet;
+- production control over sibling repositories;
+- automatic availability of Tower, AKOS, Pro-Mastermind, model providers, MCP servers, or external connectors;
+- hardware integration from piston/taxonomy labels;
+- provider credentials, proprietary access, or external authority;
+- that configuration files named `secret`, `stealth`, or similar contain privileged external access merely because of their names.
+
+Sibling repositories can be architecture references or separately verified capability donors. Their state must be established by their own current proof.
+
+## Version
+
+Package metadata and `megamind.__version__` are both `0.5.0`.
 
 ## License
 

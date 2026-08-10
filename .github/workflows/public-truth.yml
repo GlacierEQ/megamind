@@ -1,0 +1,71 @@
+name: Public Truth Gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.13"]
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+
+      - name: Verify exact source identity
+        shell: bash
+        run: |
+          expected="${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}"
+          test "$(git rev-parse HEAD)" = "$expected"
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git fetch --no-tags origin "${{ github.event.pull_request.base.sha }}"
+            git merge-base --is-ancestor "${{ github.event.pull_request.base.sha }}" HEAD
+          fi
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install package and test dependencies
+        run: python -m pip install -e ".[dev]"
+
+      - name: Run repository tests
+        run: pytest -q
+
+      - name: Validate schemas and YAML registries
+        shell: python
+        run: |
+          import json
+          from pathlib import Path
+          import yaml
+          from jsonschema.validators import validator_for
+
+          for path in sorted(Path("schema").glob("*.json")):
+              schema = json.loads(path.read_text(encoding="utf-8"))
+              validator_for(schema).check_schema(schema)
+
+          yaml_paths = sorted(
+              path
+              for path in Path("registry").rglob("*")
+              if path.is_file() and path.suffix.lower() in {".yml", ".yaml"}
+          )
+          for path in yaml_paths:
+              yaml.safe_load(path.read_text(encoding="utf-8"))
+
+      - name: Verify public truth boundary
+        run: |
+          test "$(python -c 'import megamind; print(megamind.__version__)')" = "0.5.0"
+          grep -q 'version = "0.5.0"' pyproject.toml
+          ! grep -q '/Users/kcbflux/' src/megamind/adapters/tower.py
+          grep -q 'does \*\*not\*\* establish' README.md

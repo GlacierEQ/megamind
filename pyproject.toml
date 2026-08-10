@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "megamind"
-version = "1.0.0"
-description = "Sovereign Agent Registry & Piston Capability Integration Core for GlacierEQ APEX"
+version = "0.5.0"
+description = "Local agent registry, schema, and capability-taxonomy toolkit for GlacierEQ"
 readme = "README.md"
 authors = [{ name = "GlacierEQ", email = "apex@glaciereq.io" }]
 license = { text = "MIT" }
@@ -23,4 +23,3 @@ dev = [
 
 [project.scripts]
 megamind = "megamind.cli:main"
-

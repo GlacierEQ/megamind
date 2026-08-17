@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "megamind"
 version = "0.5.0"
-description = "Local agent registry, schema, and capability-taxonomy toolkit for GlacierEQ"
+description = "Robust decision intelligence, agent registry, schema, and capability orchestration toolkit for GlacierEQ"
 readme = "README.md"
 authors = [{ name = "GlacierEQ", email = "apex@glaciereq.io" }]
 license = { text = "MIT" }
@@ -23,3 +23,4 @@ dev = [
 
 [project.scripts]
 megamind = "megamind.cli:main"
+megamind-decide = "megamind.decision_cli:main"

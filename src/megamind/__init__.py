@@ -12,6 +12,7 @@ from .scanner import ModelArchaeologyScanner
 from .tranche import MegamindRecoveryTranche
 from .alpha_master import SecretAlphaMasterEngine
 from .authority_half_life import AuthorityHalfLife, AuthorityToken
+from .decision_intelligence import DecisionCandidate, DecisionIntelligenceEngine, IntelligentDecision
 
 __version__ = "0.5.0"
 __all__ = [
@@ -26,4 +27,7 @@ __all__ = [
     "SecretAlphaMasterEngine",
     "AuthorityHalfLife",
     "AuthorityToken",
+    "DecisionCandidate",
+    "DecisionIntelligenceEngine",
+    "IntelligentDecision",
 ]
